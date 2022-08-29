@@ -17,8 +17,9 @@ class MoblixController extends Controller
         $this->moblixService->autenticar();
     }
 
-    public function queryFlight(MoblixQueryRequest $request)
+    public function queryFlight($source, $destiny, $departure_date, $return_date, MoblixQueryRequest $request)
     {
+
         $input = $request->validated();
 
         $headers = [
@@ -27,8 +28,9 @@ class MoblixController extends Controller
         ];
 
         $this->moblixService->setHeaders($headers);
-        $result = $this->moblixService->queryFlight($input);
-        
+
+        $result = $this->moblixService->queryFlight($source, $destiny, $departure_date, $return_date, $input);
         return new MoblixCollection($result);
+
     }
 }
