@@ -12,6 +12,6 @@ Route::prefix('v1')->group(function () {
     Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 
     Route::prefix('moblix')->group(function () {
-        Route::get('query/{source}/{destiny}/{departure_date}/{return_date}/{other_data?}', [MoblixController::class, 'queryFlight']);
+        Route::post('query', [MoblixController::class, 'queryFlight']);
     });
 });

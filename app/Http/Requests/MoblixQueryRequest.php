@@ -24,10 +24,14 @@ class MoblixQueryRequest extends FormRequest
     public function rules()
     {
         return [
-            'adults' => 'required|numeric',
-            'childrens' => 'nullable|numeric',
-            'bebes' => 'nullable|numeric',
-            'company' => 'nullable|numeric'            
+            'Origem' => 'required|string|size:3',
+            'Destino' => 'required|string|size:3',
+            'Ida' => 'required|date',
+            'Volta' => 'required|date',
+            'Adultos' => 'required|numeric',
+            'Criancas' => 'nullable|numeric',
+            'Bebes' => 'nullable|numeric',
+            'Companhia' => 'nullable|numeric'
         ];
     }
 }
