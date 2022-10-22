@@ -24,8 +24,19 @@ class AuthRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string',
-            'last_name' => 'string|nullable',
+            'typePerson' => 'required|string',
+            'fullName' => 'required|string',
+            'cpf' => 'required|string',
+            'birthday' => 'required|date',
+            'cep' => 'required|string',
+            'bairro' => 'required|string',
+            'address' => 'required|string',
+            'estado' => 'required|string',
+            'number' => 'nullable|numeric',
+            'ciudade' => 'required|string',
+            'complemento' => 'nullable|string',
+            'mainPhone' => 'required|string',
+            'alternativePhone' => 'nullable|string',
             'email' => 'required|email',
             'password' => 'required|string|min:8|max:30|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+/'
         ];

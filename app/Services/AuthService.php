@@ -30,8 +30,23 @@ class AuthService
         ];
     }
 
-    public function register(string $first_name, string $last_name, string $email, string $password)
-    {
+    public function register(
+        string $type_person,
+        string $full_name,
+        string $cpf,
+        string $birthday,
+        string $cep,
+        string $bairro,
+        string $address,
+        string $estado,
+        int $number,
+        string $ciudade,
+        string $complemento,
+        string $main_phone,
+        string $alternative_phone,
+        string $email,
+        string $password
+    ) {
         $user = User::where('email', $email)->exists();
 
         if (!empty($user)) {
@@ -41,15 +56,26 @@ class AuthService
         $userPassword = bcrypt($password ?? Str::random(10));
 
         $user = User::create([
-            'first_name' => $first_name,
-            'last_name' => $last_name,
+            'typePerson' => $type_person,
+            'fullName' => $full_name,
+            'cpf' => $cpf,
+            'birthday' => $birthday,
+            'cep' => $cep,
+            'bairro' => $bairro,
+            'address' => $address,
+            'estado' => $estado,
+            'number' => $number,
+            'ciudade' => $ciudade,
+            'complemento' => $complemento,
+            'mainPhone' => $main_phone,
+            'alternativePhone' => $alternative_phone,
             'email' => $email,
             'password' => $userPassword,
             'confirmation_token' => Str::random(60)
         ]);
 
-        event(new UserRegistered($user));
-
+        /**Evento para enviar email a un usuario para confirmar email */
+        /* event(new UserRegistered($user)); */
         return $user;
     }
 

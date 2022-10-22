@@ -8,7 +8,6 @@ use App\Http\Requests\AuthRegisterRequest;
 use App\Http\Requests\AuthVerifyEmailRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -30,7 +29,23 @@ class AuthController extends Controller
     public function register(AuthRegisterRequest $request)
     {
         $input = $request->validated();
-        $user = $this->authService->register($input['first_name'], $input['last_name'] ?? '', $input['email'], $input['password']);
+        $user = $this->authService->register(
+            $input['typePerson'],
+            $input['fullName'],
+            $input['cpf'],
+            $input['birthday'],
+            $input['cep'],
+            $input['bairro'],
+            $input['address'],
+            $input['estado'],
+            $input['number'] ?? '',
+            $input['ciudade'],
+            $input['complemento'] ?? '',
+            $input['mainPhone'],
+            $input['alternativePhone'] ?? '',
+            $input['email'],
+            $input['password']
+        );
 
         return new UserResource($user);
     }
@@ -39,7 +54,7 @@ class AuthController extends Controller
     {
         $input = $request->validated();
 
-        $user =  $this->authService->verifyEmail($input['token']);
+        $user = $this->authService->verifyEmail($input['token']);
 
         return new UserResource($user);
     }

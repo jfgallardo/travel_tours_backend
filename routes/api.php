@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AeroportoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MoblixController;
 use Illuminate\Http\Request;
@@ -14,4 +15,6 @@ Route::prefix('v1')->group(function () {
     Route::prefix('moblix')->group(function () {
         Route::post('query', [MoblixController::class, 'queryFlight']);
     });
+
+    Route::get('search-keyword/{keyword}', [AeroportoController::class, 'searchByIatabyCityAndAirport']);
 });

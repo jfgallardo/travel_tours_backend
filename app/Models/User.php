@@ -19,12 +19,22 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'typePerson',
+        'fullName',
+        'cpf',
+        'birthday',
+        'cep',
+        'bairro',
+        'address',
+        'estado',
+        'number',
+        'ciudade',
+        'complemento',
+        'mainPhone',
+        'alternativePhone',
         'email',
         'password',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -43,7 +53,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-     /**
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
