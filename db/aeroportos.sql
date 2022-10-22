@@ -31,7 +31,8 @@ CREATE TABLE `aeroportos` (
   `id_table` bigint UNSIGNED NOT NULL,
   `iata` varchar(3) COLLATE utf8mb4_general_ci NOT NULL,
   `ciudade` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `aeroporto` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `aeroporto` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+   PRIMARY KEY (id_table)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
