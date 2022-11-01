@@ -5,11 +5,12 @@ namespace App\Services;
 use App\Exceptions\InvalidDateOutException;
 use App\Exceptions\InvalidIataException;
 use Illuminate\Support\Facades\Http;
-use App\Services\ConnectionMoblixService;
 use DateTime;
 
-class MoblixService extends ConnectionMoblixService
+class MoblixService
 {
+    private $headers;
+    private $token;
 
     public function autenticar()
     {
@@ -33,22 +34,9 @@ class MoblixService extends ConnectionMoblixService
 
     public function queryFlight(array $data)
     {
-        /* $departure = new DateTime($departure_date);
-        $return_d = new DateTime($return_date);
-        
-        if (strlen($source) != 3 || strlen($destiny) != 3) {
-            throw new InvalidIataException();
-        }
-
-        if ($departure > $return_d) {
-            throw new InvalidDateOutException();
-        } */
         $response = Http::withHeaders($this->headers)->post('https://api.moblix.com.br/api/ConsultaAereo/Consultar', $data);
         return $response->json();
     }
-
-
-
 
     public function setHeaders(array $value): self
     {
