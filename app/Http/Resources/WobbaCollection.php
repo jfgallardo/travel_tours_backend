@@ -18,6 +18,8 @@ class WobbaCollection extends ResourceCollection
             'Exception' => $this->collection['Exception'],
             'ViagensTrecho1' => $this->collection['ViagensTrecho1'],
             'ViagensTrecho2' => $this->collection['ViagensTrecho2'],
+            'DataIda' => $this->collection['DataIda'],
+            'DataVolta' => $this->collection['DataVolta'],
             'QntdAdulto' => $this->collection['QuantidadeAdultos'],
             'QntdCrianca' => $this->collection['QuantidadeCriancas'],
             'QntdBebe' => $this->collection['QuantidadeBebes'],
