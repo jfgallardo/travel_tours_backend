@@ -30,8 +30,38 @@ class WobbaController extends Controller
         $body = array_merge($input, $access);
 
         $result = $this->woobaService->disponibilidade($body);
-        return new WobbaCollection($result);
+        $ofertasXtrecho = $this->ofertaDesde($result);
+        return new WobbaCollection(array_merge($result, $ofertasXtrecho));
 
+    }
+
+    private function ofertaDesde(array $result)
+    {
+        $trechoOne = $this->menorOferta($result['ViagensTrecho1']);
+        $trechoTwo = $result['ViagensTrecho2'] ? $this->menorOferta($result['ViagensTrecho2']) : null;
+        
+        return [
+            'ofertasDesde' => [
+                'trechoOneOferta' => $trechoOne,
+                'trechoTwoOferta' => $trechoTwo,
+            ],
+        ];
+    } 
+
+    private function menorOferta(array $trecho = null)
+    {
+        $oferta = 0;
+
+        foreach($trecho as $value){
+            if ($oferta === 0) {
+                $oferta = $value['Preco']['PrecoAdulto']['ValorTarifa'];             
+            }
+           if($value['Preco']['PrecoAdulto']['ValorTarifa'] < $oferta ){
+            $oferta = $value['Preco']['PrecoAdulto']['ValorTarifa'];
+           }
+        }
+        
+        return $oferta;
     }
     
 }

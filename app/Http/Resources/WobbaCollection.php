@@ -24,6 +24,7 @@ class WobbaCollection extends ResourceCollection
             'QntdCrianca' => $this->collection['QuantidadeCriancas'],
             'QntdBebe' => $this->collection['QuantidadeBebes'],
             'Recomendacoes' => $this->collection['Recomendacoes'],
+            'OfertasDesde' => $this->collection['ofertasDesde'],
         ];
     }
 }
