@@ -24,4 +24,5 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::get('search-keyword/{keyword}', [MoblixController::class, 'searchByIatabyCityAndAirport']);
+    Route::get('find-travel/{Id}', [WobbaController::class, 'findViagenRedis']);
 });

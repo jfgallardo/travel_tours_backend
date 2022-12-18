@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\WobbaQueryRequest;
 use App\Http\Resources\WobbaCollection;
 use App\Services\WobbaService;
-use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Redis;
 
 class WobbaController extends Controller
 {
@@ -20,18 +21,22 @@ class WobbaController extends Controller
     public function disponibilidade(WobbaQueryRequest $request)
     {
         $input = $request->validated();
-
         $access = [
             "Login" => env('LOGIN_WCF'),
             "Senha" => env('SENHA_WCF'),
             "Token" => $this->woobaService->getToken()
         ];
-
         $body = array_merge($input, $access);
 
         $result = $this->woobaService->disponibilidade($body);
         $ofertasXtrecho = $this->ofertaDesde($result);
+
         return new WobbaCollection(array_merge($result, $ofertasXtrecho));
+    }
+
+    public function findViagenRedis($id)
+    {
+        return Redis::get($id);
     }
 
     private function ofertaDesde(array $result)

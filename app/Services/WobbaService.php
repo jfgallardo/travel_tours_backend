@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redis;
 
 class WobbaService
 {
@@ -35,6 +36,15 @@ class WobbaService
     public function disponibilidade(array $body)
     {
         $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('DISPONIBILIDADE'), $body);
+        Redis::flushall();
+        foreach ($response->json()["ViagensTrecho1"] as $value) {
+            Redis::set($value["Id"], json_encode($value));
+        }
+        if ($response->json()["ViagensTrecho2"]) {
+            foreach ($response->json()["ViagensTrecho2"] as $value) {
+                Redis::set($value["Id"], json_encode($value));
+            }
+        }
         return $response->json();
     }
 
