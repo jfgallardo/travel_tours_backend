@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\WobbaQueryRequest;
 use App\Http\Resources\WobbaCollection;
 use App\Services\WobbaService;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Redis;
 
 class WobbaController extends Controller
@@ -30,6 +29,17 @@ class WobbaController extends Controller
 
         $result = $this->woobaService->disponibilidade($body);
         $ofertasXtrecho = $this->ofertaDesde($result);
+
+        foreach ($result["ViagensTrecho1"] as $value) {
+            Redis::set($value["Id"], json_encode($value));
+            Redis::expire($value["Id"], 1800);
+        }
+        if ($result["ViagensTrecho2"]) {
+            foreach ($result["ViagensTrecho2"] as $value) {
+                Redis::set($value["Id"], json_encode($value));
+                Redis::expire($value["Id"], 1800);
+            }
+        }
 
         return new WobbaCollection(array_merge($result, $ofertasXtrecho));
     }

@@ -16,6 +16,7 @@ class WobbaCollection extends ResourceCollection
     {
         return [
             'Exception' => $this->collection['Exception'],
+            'Cia' => $this->collection['Cia'],
             'ViagensTrecho1' => $this->collection['ViagensTrecho1'],
             'ViagensTrecho2' => $this->collection['ViagensTrecho2'],
             'DataIda' => $this->collection['DataIda'],
@@ -25,6 +26,34 @@ class WobbaCollection extends ResourceCollection
             'QntdBebe' => $this->collection['QuantidadeBebes'],
             'Recomendacoes' => $this->collection['Recomendacoes'],
             'OfertasDesde' => $this->collection['ofertasDesde'],
+            'AirportsIataTrecho1' => $this->getAllAirport1(),
+            'AirportsIataTrecho2' => $this->getAllAirport2(),
         ];
+    }
+
+    private function getAllAirport1(){
+        $travels = $this->collection['ViagensTrecho1'];
+        $airports = [];
+        foreach ($travels as $value) {
+            foreach ($value["Voos"] as $voo) {
+            array_push($airports, $voo["Origem"]["CodigoIata"]);
+            array_push($airports, $voo["Destino"]["CodigoIata"]);
+            }
+        }
+
+        return array_unique($airports);
+    }
+
+    private function getAllAirport2(){
+        $travels = $this->collection['ViagensTrecho2'] ?? [];
+        $airports = [];
+        foreach ($travels as $value) {
+            foreach ($value["Voos"] as $voo) {
+            array_push($airports, $voo["Origem"]["CodigoIata"]);
+            array_push($airports, $voo["Destino"]["CodigoIata"]);
+            }
+        }
+
+        return array_unique($airports);
     }
 }

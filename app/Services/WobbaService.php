@@ -36,15 +36,6 @@ class WobbaService
     public function disponibilidade(array $body)
     {
         $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('DISPONIBILIDADE'), $body);
-        Redis::flushall();
-        foreach ($response->json()["ViagensTrecho1"] as $value) {
-            Redis::set($value["Id"], json_encode($value));
-        }
-        if ($response->json()["ViagensTrecho2"]) {
-            foreach ($response->json()["ViagensTrecho2"] as $value) {
-                Redis::set($value["Id"], json_encode($value));
-            }
-        }
         return $response->json();
     }
 
@@ -96,4 +87,5 @@ class WobbaService
         openssl_public_encrypt($encry, $data_, $public_key);
         return base64_encode($data_);
     }
+
 }
