@@ -27,7 +27,7 @@ class AuthRegisterRequest extends FormRequest
             'typePerson' => 'required|string',
             'fullName' => 'required|string',
             'cpf' => 'required|string',
-            'birthday' => 'required|date',
+            'birthday' => 'required|string',
             'cep' => 'required|string',
             'bairro' => 'required|string',
             'address' => 'required|string',

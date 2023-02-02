@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MoblixController;
-use App\Http\Controllers\WobbaController;
+use App\Http\Controllers\Wooba\DetalhesdeFamiliaController;
+use App\Http\Controllers\Wooba\DisponibilidadeController;
+use App\Http\Controllers\Wooba\RegraDaTarifaController;
+use App\Http\Controllers\Wooba\TarifarController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -20,9 +23,12 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('wooba')->group(function () {
-        Route::post('query', [WobbaController::class, 'disponibilidade']);
+        Route::post('query', [DisponibilidadeController::class, 'disponibilidade']);
+        Route::post('family-details', [DetalhesdeFamiliaController::class, 'detalhesDeFamilia']);
+        Route::post('tarifar', [TarifarController::class, 'tarifar']);
+        Route::post('obter-regra-tarifa', [RegraDaTarifaController::class, 'obterRegraDaTarifa']);
     });
 
     Route::get('search-keyword/{keyword}', [MoblixController::class, 'searchByIatabyCityAndAirport']);
-    Route::get('find-travel/{Id}', [WobbaController::class, 'findViagenRedis']);
+    Route::get('find-travel/{Id}', [DisponibilidadeController::class, 'findViagenRedis']);
 });

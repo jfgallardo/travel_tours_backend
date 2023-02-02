@@ -36,6 +36,43 @@ class WobbaService
     public function disponibilidade(array $body)
     {
         $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('DISPONIBILIDADE'), $body);
+        $dataJson = $response->json();
+        foreach ($dataJson["ViagensTrecho1"] as $value) {
+            Redis::set($value["Id"], json_encode($value));
+            Redis::expire($value["Id"], 1800);
+        }
+        if ($dataJson["ViagensTrecho2"]) {
+            foreach ($dataJson["ViagensTrecho2"] as $value) {
+                Redis::set($value["Id"], json_encode($value));
+                Redis::expire($value["Id"], 1800);
+            }
+        }
+
+        $ofertasXtrecho = $this->ofertaDesde($dataJson);
+        return array_merge($dataJson, $ofertasXtrecho);
+    }
+
+    /* public function iniciarEmissao(array $body)
+    {
+        $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('INICIAR_EMISSAO'), $body);
+        return $response->json();
+    } */
+
+    public function obterRegraDaTarifa(array $body)
+    {
+        $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('OBTER_REGRA_DA_TARIFA'), $body);
+        return $response->json();
+    }
+
+    public function detalhesDeFamilia(array $body)
+    {
+        $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('DETHALES_FAMILIA'), $body);
+        return $response->json();
+    }
+
+    public function tarifar(array $body)
+    {
+        $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('TARIFAR'), $body);
         return $response->json();
     }
 
@@ -86,6 +123,33 @@ class WobbaService
         $public_key = openssl_pkey_get_public(file_get_contents('public_key.pem'));
         openssl_public_encrypt($encry, $data_, $public_key);
         return base64_encode($data_);
+    }
+
+    private function ofertaDesde(array $result)
+    {
+        $trechoOne = $this->menorOferta($result['ViagensTrecho1']);
+        $trechoTwo = $result['ViagensTrecho2'] ? $this->menorOferta($result['ViagensTrecho2']) : null;
+
+        return [
+            'ofertasDesde' => [
+                'trechoOneOferta' => $trechoOne,
+                'trechoTwoOferta' => $trechoTwo,
+            ],
+        ];
+    }
+
+    private function menorOferta(array $trecho = null)
+    {
+        $offersCompany = [];
+
+        foreach ($trecho as $value) {
+            array_push($offersCompany, [
+                'offers' => $value['Preco']['PrecoAdulto']['ValorTarifa'],
+                'company' => $value['CiaMandatoria']['CodigoIata'],
+            ]);
+        }
+
+        return $offersCompany;
     }
 
 }
