@@ -17,7 +17,6 @@ class DisponibilidadeMultiplaService
         $body = array_merge($data, $this->auth->accessToWooba());
         $response = Http::retry(3, 100)->withHeaders($this->auth->getHeaders())->post(env('DISPONIBILIDADE'), $body);
         $dataJson = $response->json();
-        dd($dataJson);
         foreach ($dataJson["ViagensTrecho1"] as $value) {
             Redis::set($value["Id"], json_encode($value));
             Redis::expire($value["Id"], 1800);

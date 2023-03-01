@@ -26,10 +26,10 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('wooba')->group(function () {
         Route::post('query', [DisponibilidadeController::class, 'disponibilidade']);
+        Route::post('multiplos-trechos', [DisponibilidadeMultiplaController::class, 'disponibilidadeMultipla']);
         Route::post('family-details', [DetalhesdeFamiliaController::class, 'detalhesDeFamilia']);
         Route::post('tarifar', [TarifarController::class, 'tarifar']);
         Route::post('obter-regra-tarifa', [RegraDaTarifaController::class, 'obterRegraDaTarifa']);
-        Route::post('multiplos-trechos', [DisponibilidadeMultiplaController::class, 'disponibilidadeMultipla']);
         Route::post('reservar', [ReservarController::class, 'reservar']);
     });
 
