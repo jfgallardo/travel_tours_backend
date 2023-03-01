@@ -4,7 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MoblixController;
 use App\Http\Controllers\Wooba\DetalhesdeFamiliaController;
 use App\Http\Controllers\Wooba\DisponibilidadeController;
+use App\Http\Controllers\Wooba\DisponibilidadeMultiplaController;
 use App\Http\Controllers\Wooba\RegraDaTarifaController;
+use App\Http\Controllers\Wooba\ReservarController;
 use App\Http\Controllers\Wooba\TarifarController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +29,8 @@ Route::prefix('v1')->group(function () {
         Route::post('family-details', [DetalhesdeFamiliaController::class, 'detalhesDeFamilia']);
         Route::post('tarifar', [TarifarController::class, 'tarifar']);
         Route::post('obter-regra-tarifa', [RegraDaTarifaController::class, 'obterRegraDaTarifa']);
+        Route::post('multiplos-trechos', [DisponibilidadeMultiplaController::class, 'disponibilidadeMultipla']);
+        Route::post('reservar', [ReservarController::class, 'reservar']);
     });
 
     Route::get('search-keyword/{keyword}', [MoblixController::class, 'searchByIatabyCityAndAirport']);

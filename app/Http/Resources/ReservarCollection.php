@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TarifarCollection extends ResourceCollection
+class ReservarCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,9 +14,6 @@ class TarifarCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'Exception' => $this->collection['Exception'],
-            'Data' => $this->collection
-        ];
+        return parent::toArray($request);
     }
 }

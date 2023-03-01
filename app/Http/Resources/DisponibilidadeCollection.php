@@ -25,6 +25,7 @@ class DisponibilidadeCollection extends ResourceCollection
             'QntdCrianca' => $this->collection['QuantidadeCriancas'],
             'QntdBebe' => $this->collection['QuantidadeBebes'],
             'Recomendacoes' => $this->collection['Recomendacoes'],
+            'MultiplosTrechos' => $this->collection['ViagensMultiplosTrechos'],
             'OfertasDesde' => $this->collection['ofertasDesde'],
             'AirportsIataTrecho1' => $this->getAllAirport1(),
             'AirportsIataTrecho2' => $this->getAllAirport2(),
