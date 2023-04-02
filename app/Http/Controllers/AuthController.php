@@ -47,7 +47,7 @@ class AuthController extends Controller
             $input['password']
         );
 
-        return new UserResource($user);
+        return UserResource::collection($user);
     }
 
     public function verifyEmail(AuthVerifyEmailRequest $request)

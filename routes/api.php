@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MoblixController;
+use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\Wooba\DetalhesdeFamiliaController;
 use App\Http\Controllers\Wooba\DisponibilidadeController;
 use App\Http\Controllers\Wooba\DisponibilidadeMultiplaController;
@@ -16,12 +17,19 @@ Route::prefix('v1')->group(function () {
     Route::post('verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 
+
+    Route::prefix('passengers')->group(function () {
+        Route::apiResource('/', PassengerController::class)->except(['show', 'update', 'destroy']);
+        Route::post('edit/{id}', [PassengerController::class, 'updatePassenger']);
+        Route::post('delete/{id}', [PassengerController::class, 'deletePassenger']);
+        Route::get('list-by-user', [PassengerController::class, 'getByIdUser']);
+    });
+
     Route::prefix('moblix')->group(function () {
         Route::post('query', [MoblixController::class, 'queryFlight']);
         Route::post('search-hotel', [MoblixController::class, 'hotelAutoComplete']);
         Route::post('hotel-available', [MoblixController::class, 'hotelAvailable']);
         Route::post('hotel-information', [MoblixController::class, 'hotelInformation']);
-
     });
 
     Route::prefix('wooba')->group(function () {

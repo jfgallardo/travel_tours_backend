@@ -18,10 +18,14 @@ class DisponibilidadeService
         $body = array_merge($data, $this->auth->accessToWooba());
         $response = Http::retry(3, 100)->withHeaders($this->auth->getHeaders())->post(env('DISPONIBILIDADE'), $body);
         $dataJson = $response->json();
-        foreach ($dataJson["ViagensTrecho1"] as $value) {
-            Redis::set($value["Id"], json_encode($value));
-            Redis::expire($value["Id"], 1800);
+
+        if ($dataJson["ViagensTrecho1"]) {
+            foreach ($dataJson["ViagensTrecho1"] as $value) {
+                Redis::set($value["Id"], json_encode($value));
+                Redis::expire($value["Id"], 1800);
+            }
         }
+        
         if ($dataJson["ViagensTrecho2"]) {
             foreach ($dataJson["ViagensTrecho2"] as $value) {
                 Redis::set($value["Id"], json_encode($value));
@@ -35,7 +39,7 @@ class DisponibilidadeService
 
     private function ofertaDesde(array $result)
     {
-        $trechoOne = $this->menorOferta($result['ViagensTrecho1']);
+        $trechoOne = $result['ViagensTrecho1'] ? $this->menorOferta($result['ViagensTrecho1']) : null;
         $trechoTwo = $result['ViagensTrecho2'] ? $this->menorOferta($result['ViagensTrecho2']) : null;
 
         return [

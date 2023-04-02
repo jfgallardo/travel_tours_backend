@@ -106,7 +106,7 @@ class AutenticarWoobaService
         $current_date = date("d/m/Y");
         $binary_data = env('BINARY_DATA');
         $encry = strval($binary_data)  . '|' . $current_date;
-        $public_key = openssl_pkey_get_public(file_get_contents('public_key.pem'));
+        $public_key = openssl_pkey_get_public(file_get_contents('public/public_key.pem'));
         openssl_public_encrypt($encry, $data_, $public_key);
         return base64_encode($data_);
     }

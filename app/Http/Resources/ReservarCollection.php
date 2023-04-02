@@ -14,6 +14,9 @@ class ReservarCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'Exception' => $this->collection['Exception'],
+            'Reservas' => $this->collection['Reservas']
+        ];
     }
 }
