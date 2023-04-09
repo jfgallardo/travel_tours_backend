@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Events\ForgotPassword;
 use App\Events\UserRegistered;
+use App\Exceptions\EmailNotVerifiedException;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Exceptions\LoginInvalidException;
+use App\Exceptions\ResetPasswordTokenInvalidException;
 use App\Exceptions\UserHasBeenTakenException;
 use App\Exceptions\VerifyEmailTokenInvalidException;
 use App\Models\PasswordReset;
@@ -15,6 +17,16 @@ class AuthService
 {
     public function login(string $email, string $password)
     {
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            throw new LoginInvalidException();
+        }
+
+        if (!$user->email_verified_at) {
+            throw new EmailNotVerifiedException();
+        }
+
         $login = [
             'email' => $email,
             'password' => $password
@@ -56,6 +68,7 @@ class AuthService
         $userPassword = bcrypt($password ?? Str::random(10));
 
         $user = User::create([
+            'confirmation_token' => Str::random(60),
             'typePerson' => $type_person,
             'fullName' => $full_name,
             'cpf' => $cpf,
@@ -71,12 +84,9 @@ class AuthService
             'alternativePhone' => $alternative_phone,
             'email' => $email,
             'password' => $userPassword,
-            'confirmation_token' => Str::random(60)
         ]);
 
-        /**Evento para enviar email a un usuario para confirmar email */
-        /* event(new UserRegistered($user)); */
-        return $user;
+        event(new UserRegistered($user));
     }
 
     public function verifyEmail(string $token)
@@ -105,5 +115,21 @@ class AuthService
         ]);
 
         event(new ForgotPassword($user, $token));
+
+    }
+
+    public function resetPassword(string $email, string $password, string $token)
+    {
+        $passReset = PasswordReset::where('email', $email)->where('token', $token)->first();
+
+        if (empty($passReset)) {
+            throw new ResetPasswordTokenInvalidException();
+        }
+
+        $user = User::where('email', $email)->firstOrFail();
+        $user->password = bcrypt($password);
+        $user->save();
+
+        PasswordReset::where('email', $email)->delete();
     }
 }
