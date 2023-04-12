@@ -8,7 +8,7 @@ use App\Http\Requests\HotelSearchMoblixRequest;
 use App\Http\Requests\MoblixQueryRequest;
 use App\Http\Resources\HotelCompleteCollection;
 use App\Http\Resources\MoblixCollection;
-use App\Services\MoblixService;
+use App\Services\Moblix\MoblixService;
 
 
 class MoblixController

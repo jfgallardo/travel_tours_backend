@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Moblix;
 
 use App\Exceptions\EmptyFieldException;
 use App\Exceptions\InvalidDateOutException;
