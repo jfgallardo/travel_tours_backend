@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Moblix\SearchFlightController;
-use app\Http\Controllers\Moblix\MoblixController;
+use App\Http\Controllers\Moblix\MoblixController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\VooController;
 use App\Http\Controllers\Wooba\DetalhesdeFamiliaController;
