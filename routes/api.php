@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Moblix\SearchFlightController;
 use App\Http\Controllers\MoblixController;
 use App\Http\Controllers\PassengerController;
+use App\Http\Controllers\VooController;
 use App\Http\Controllers\Wooba\DetalhesdeFamiliaController;
 use App\Http\Controllers\Wooba\DisponibilidadeController;
 use App\Http\Controllers\Wooba\DisponibilidadeMultiplaController;
@@ -25,14 +27,20 @@ Route::prefix('v1')->group(function () {
         Route::get('list-by-user', [PassengerController::class, 'getByIdUser']);
     });
 
-    Route::prefix('moblix')->group(function () {
-        Route::post('query', [MoblixController::class, 'queryFlight']);
+    
+    Route::prefix('voo')->group(function () {
+        Route::post('round-trip', [VooController::class, 'roundTrip']);
+        Route::post('one-way');
+    });
+    
+   /*  Route::prefix('moblix')->group(function () {
+        Route::post('query', [SearchFlightController::class, 'queryFlight']);
         Route::post('search-hotel', [MoblixController::class, 'hotelAutoComplete']);
         Route::post('hotel-available', [MoblixController::class, 'hotelAvailable']);
         Route::post('hotel-information', [MoblixController::class, 'hotelInformation']);
     });
-
-    Route::prefix('wooba')->group(function () {
+ */
+   /*  Route::prefix('wooba')->group(function () {
         Route::post('query', [DisponibilidadeController::class, 'disponibilidade']);
         Route::post('multiplos-trechos', [DisponibilidadeMultiplaController::class, 'disponibilidadeMultipla']);
         Route::post('family-details', [DetalhesdeFamiliaController::class, 'detalhesDeFamilia']);
@@ -40,7 +48,7 @@ Route::prefix('v1')->group(function () {
         Route::post('obter-regra-tarifa', [RegraDaTarifaController::class, 'obterRegraDaTarifa']);
         Route::post('reservar', [ReservarController::class, 'reservar']);
     });
-
+ */
     Route::get('search-keyword/{keyword}', [MoblixController::class, 'searchByIatabyCityAndAirport']);
     Route::get('find-travel/{Id}', [DisponibilidadeController::class, 'findViagenRedis']);
 });

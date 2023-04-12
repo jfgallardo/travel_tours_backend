@@ -14,16 +14,6 @@ class MoblixCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $data = $this->collection['Data'][0];
-        
-        return [
-            'totalItens' => $this->collection['TotalItens'],
-            'TokenConsulta' => $data['TokenConsulta'],
-            'Ida' => $data['Ida'],
-            'Volta' => $data['Volta'],
-            'QntdAdulto' => $data['QntdAdulto'],
-            'QntdCrianca' => $data['QntdCrianca'],
-            'QntdBebe' => $data['QntdBebe'],
-        ];
+        return parent::toArray($request);
     }
 }

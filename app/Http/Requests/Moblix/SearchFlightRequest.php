@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MoblixQueryRequest extends FormRequest
+class SearchFlightRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,10 @@ class MoblixQueryRequest extends FormRequest
             'Adultos' => 'required|numeric',
             'Criancas' => 'nullable|numeric',
             'Bebes' => 'nullable|numeric',
-            'Companhia' => 'nullable|numeric'
+            'Companhia' => 'nullable|numeric',
+            'OrderBy' => 'nullable|string',
+            'IsDesc' => 'nullable|boolean',
+            'Cabine' => 'nullable'
         ];
     }
 }
