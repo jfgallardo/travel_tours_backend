@@ -20,6 +20,12 @@ class VooController extends Controller
         $input = $request->validated();
         $result = $this->vooService->roundTripAll($input, $filter);
 
+        if (array_key_exists('Error', $result)) {
+         return response([
+            "error_message" => $result['Error']['Message']
+         ], 404);   
+        }
+
         return response()->json($result);
     }
 }

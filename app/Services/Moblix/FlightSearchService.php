@@ -21,6 +21,11 @@ class FlightSearchService
     public function fligthSearch(array $data, string $filter)
     {
         $response = Http::withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
+        if ($response->json()['Erro']) {
+            return [
+                "Error" => $response->json()['Erro']
+            ];
+        }
 
         $tokenConsulta = $this->getValueToArray($response->json(), 'TokenConsulta');
         $adulto = $this->getValueToArray($response->json(), 'QntdAdulto');
