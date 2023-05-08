@@ -19,6 +19,8 @@ Route::prefix('v1')->group(function () {
     Route::post('verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
     Route::post('reset-password', [AuthController::class, 'resetPassword']);
+    Route::post('logout', [AuthController::class, 'logout']);
+
 
     Route::prefix('passengers')->group(function () {
         Route::apiResource('/', PassengerController::class)->except(['show', 'update', 'destroy']);

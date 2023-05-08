@@ -82,4 +82,9 @@ class AuthController extends Controller
             'isReset' => true,
         ]);
     }
+
+    public function logout() {
+        auth()->logout();
+        return response()->json(['message' => 'User successfully signed out']);
+    }
 }

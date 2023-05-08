@@ -38,7 +38,8 @@ class AuthService
 
         return [
             'access_token' => $token,
-            'type_token' => 'Bearer'
+            'type_token' => 'Bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ];
     }
 
