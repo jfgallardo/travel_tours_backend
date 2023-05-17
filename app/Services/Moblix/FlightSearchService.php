@@ -26,16 +26,13 @@ class FlightSearchService
                 "Error" => $response->json()['Erro']
             ];
         }
-
         $tokenConsulta = $this->getValueToArray($response->json(), 'TokenConsulta');
         $adulto = $this->getValueToArray($response->json(), 'QntdAdulto');
         $crianca = $this->getValueToArray($response->json(), 'QntdCrianca');
         $bebe = $this->getValueToArray($response->json(), 'QntdBebe');
         $companhia = $this->getValueToArray($response->json(), 'Companhia');
         $ida = $this->getVooIda($response->json());
-        $ida->sortBy($filter);
         $volta = $this->getVooVolta($response->json());
-        $volta->sortBy($filter);
         $companhiaVolta = $this->getValueToArray($response->json(), 'CompanhiaVolta');
         $multas = $this->getValueToArray($response->json(), 'Multas');
         $areoportos = $this->getValueToArray($response->json(), 'Aeroportos');
@@ -48,8 +45,8 @@ class FlightSearchService
             "QntdAdulto" => $adulto,
             "QntdCrianca" => $crianca,
             "QntdBebe" => $bebe,
-            "Ida" => $ida->values()->all(),
-            "Volta" => $volta->values()->all(),
+            "Ida" => $ida,
+            "Volta" => $volta,
             "IdaVolta" => null,
             "MultiplesTrechos" => null,
             "Companhia" => $companhia,
@@ -65,26 +62,12 @@ class FlightSearchService
 
     private function getVooIda(array $result)
     {
-        $items = $result['Data'][0]['Ida'];
-        $collection = new Collection();
-
-        foreach ($items as $value) {
-            $collection->push((object)[$value]);
-        }
-
-        return $collection;
+        return $result['Data'][0]['Ida'];
     }
 
     private function getVooVolta(array $result)
     {
-        $items = $result['Data'][0]['Volta'];
-        $collection = new Collection();
-
-        foreach ($items as $value) {
-            $collection->push((object)[$value]);
-        }
-
-        return $collection;
+        return $result['Data'][0]['Volta'];
     }
 
     private function getValueToArray(array $result, string $value)

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Moblix\GravarController;
+use App\Http\Controllers\Moblix\ListarController;
 use App\Http\Controllers\Moblix\MoblixController;
 use App\Http\Controllers\Moblix\SearchFlightController;
 use App\Http\Controllers\PassengerController;
@@ -14,6 +16,7 @@ use App\Http\Controllers\Wooba\TarifarController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
+    
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('verify-email', [AuthController::class, 'verifyEmail']);
@@ -33,6 +36,11 @@ Route::prefix('v1')->group(function () {
     Route::prefix('voo')->group(function () {
         Route::post('round-trip', [VooController::class, 'roundTrip']);
         Route::post('one-way');
+    });
+
+    Route::prefix('moblix')->group(function () {
+        Route::post('gravar', [GravarController::class, 'gravar']);
+        Route::post('listar', [ListarController::class, 'listar']);
     });
     
    /*  Route::prefix('moblix')->group(function () {

@@ -16,9 +16,8 @@ class VooController extends Controller
 
     public function roundTrip(VooRequest $request)
     {
-        $filter = $request->query()['filter'] ?? 'ValorTotal';
         $input = $request->validated();
-        $result = $this->vooService->roundTripAll($input, $filter);
+        $result = $this->vooService->roundTripAll($input, $request->get('filter'));
 
         if (array_key_exists('Error', $result)) {
          return response([
