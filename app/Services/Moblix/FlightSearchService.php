@@ -40,6 +40,22 @@ class FlightSearchService
         $request = $this->getValueToArray($response->json(), 'Request');
         $starAlliance = $this->getValueToArray($response->json(), 'IsStarAlliance');
 
+        if ($ida) {
+            foreach ($ida as $value) {
+                $value['Platform'] = 1;
+                Redis::set($value["Token"], json_encode($value));
+                Redis::expire($value["Token"], 1800);
+            }
+        }
+
+        if ($volta) {
+            foreach ($volta as $value) {
+                $value['Platform'] = 1;
+                Redis::set($value["Token"], json_encode($value));
+                Redis::expire($value["Token"], 1800);
+            }
+        }
+
         return [
             "TokenConsulta" => $tokenConsulta,
             "QntdAdulto" => $adulto,
