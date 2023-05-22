@@ -52,7 +52,7 @@ class AuthService
         string $bairro,
         string $address,
         string $estado,
-        int $number,
+        string $number,
         string $ciudade,
         string $complemento,
         string $main_phone,

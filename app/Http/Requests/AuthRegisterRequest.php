@@ -32,7 +32,7 @@ class AuthRegisterRequest extends FormRequest
             'bairro' => 'required|string',
             'address' => 'required|string',
             'estado' => 'required|string',
-            'number' => 'nullable|numeric',
+            'number' => 'nullable|string',
             'ciudade' => 'required|string',
             'complemento' => 'nullable|string',
             'mainPhone' => 'required|string',
