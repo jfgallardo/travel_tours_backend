@@ -5,6 +5,7 @@ namespace App\Services\Moblix;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 
 class FlightSearchService
 {
@@ -20,7 +21,7 @@ class FlightSearchService
     }
     public function fligthSearch(array $data, string $filter)
     {
-        $response = Http::withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
+        $response = Http::timeout(60)->withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
         if ($response->json()['Erro']) {
             return [
                 "Error" => $response->json()['Erro']
@@ -68,7 +69,7 @@ class FlightSearchService
             "Companhia" => $companhia,
             "CompanhiaVolta" => $companhiaVolta,
             "Multas" => $multas,
-            "Aeroportos" => $areoportos,
+            "Aeroportos" => $areoportos ?: $this->getAirportsIata($ida, $volta),
             "Pagante" => $pagante,
             "Request" => $request,
             "IsStarAlliance" => $starAlliance,
@@ -78,16 +79,57 @@ class FlightSearchService
 
     private function getVooIda(array $result)
     {
-        return $result['Data'][0]['Ida'];
+        $voo = $result['Data'][0]['Ida'];
+
+        if (isset($voo)) {
+            foreach ($voo as &$value) {
+                $value['Token'] = Str::random(60);
+            }
+            return $voo;
+        }
+        return [];
     }
 
     private function getVooVolta(array $result)
     {
-        return $result['Data'][0]['Volta'];
+        $voo = $result['Data'][0]['Volta'];
+
+        if (isset($voo)) {
+            foreach ($voo as &$value) {
+                $value['Token'] = Str::random(60);
+            }
+            return $voo;
+        }
+
+        return [];
     }
 
     private function getValueToArray(array $result, string $value)
     {
         return $result['Data'][0][$value];
+    }
+
+    private function getAirportsIata($v_one, $v_two)
+    {
+        $iatas = array();
+        if (!$v_one && !$v_two) return array();
+
+        foreach ($v_one as $voo) {
+            foreach ($voo['Voos'] as $item) {
+                if (!in_array($item['Destino'], $iatas)) array_push($iatas, $item['Destino']);
+                if (!in_array($item['Origem'], $iatas)) array_push($iatas, $item['Origem']);
+            }
+        }
+
+        if (is_array($v_two) && count($v_two) > 0) {
+            foreach ($v_two as $voo) {
+                foreach ($voo['Voos'] as $item) {
+                    if (!in_array($item['Destino'], $iatas)) array_push($iatas, $item['Destino']);
+                    if (!in_array($item['Origem'], $iatas)) array_push($iatas, $item['Origem']);
+                }
+            }
+        }
+
+        return $iatas;
     }
 }
