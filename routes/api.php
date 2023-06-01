@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Moblix\GravarController;
 use App\Http\Controllers\Moblix\ListarController;
 use App\Http\Controllers\Moblix\MoblixController;
+use App\Http\Controllers\Moblix\PessoaFisicaController;
 use App\Http\Controllers\Moblix\SearchFlightController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\VooController;
@@ -16,7 +17,7 @@ use App\Http\Controllers\Wooba\TarifarController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
-    
+
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('verify-email', [AuthController::class, 'verifyEmail']);
@@ -32,7 +33,7 @@ Route::prefix('v1')->group(function () {
         Route::get('list-by-user', [PassengerController::class, 'getByIdUser']);
     });
 
-    
+
     Route::prefix('voo')->group(function () {
         Route::post('round-trip', [VooController::class, 'roundTrip']);
         Route::post('one-way');
@@ -41,16 +42,18 @@ Route::prefix('v1')->group(function () {
     Route::prefix('moblix')->group(function () {
         Route::post('gravar', [GravarController::class, 'gravar']);
         Route::post('listar', [ListarController::class, 'listar']);
+        Route::post('gravar-pessoa', [PessoaFisicaController::class, 'gravar']);
+        Route::post('get-pessoa', [PessoaFisicaController::class, 'getPessoa']);
     });
-    
-   /*  Route::prefix('moblix')->group(function () {
+
+    /*  Route::prefix('moblix')->group(function () {
         Route::post('query', [SearchFlightController::class, 'queryFlight']);
         Route::post('search-hotel', [MoblixController::class, 'hotelAutoComplete']);
         Route::post('hotel-available', [MoblixController::class, 'hotelAvailable']);
         Route::post('hotel-information', [MoblixController::class, 'hotelInformation']);
     });
  */
-   /*  Route::prefix('wooba')->group(function () {
+    /*  Route::prefix('wooba')->group(function () {
         Route::post('query', [DisponibilidadeController::class, 'disponibilidade']);
         Route::post('multiplos-trechos', [DisponibilidadeMultiplaController::class, 'disponibilidadeMultipla']);
         Route::post('family-details', [DetalhesdeFamiliaController::class, 'detalhesDeFamilia']);

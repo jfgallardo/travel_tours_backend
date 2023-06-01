@@ -11,7 +11,7 @@ class VooService
     {
     }
 
-    public function roundTripAll(array $data, string $filter)
+    public function roundTripAll(array $data)
     {
         $dataWooba = [];
 
@@ -26,9 +26,10 @@ class VooService
             'Companhia' => $data['Companhia'][0] ?? 1,
             'OrderBy' => $data['OrderBy'] ?? 'price',
             'IsDesc' => $data['IsDesc'] ?? false,
-            'Cabine' => (int)$data['Cabine'] ?? -1
+            'Cabine' => (int)$data['Cabine'] ?? -1,
+            /* 'Pagante' => $data['Pagante'] ?? false */
         ];
 
-        return $this->flightMoblix->fligthSearch($dataMoblix, $filter);
+        return $this->flightMoblix->fligthSearch($dataMoblix);
     }
 }

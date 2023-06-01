@@ -37,7 +37,6 @@ class ListarRequest extends FormRequest
             "DataFim" => "nullable|string",
             "IdStatusPagamentoPagSeguro" => "nullable|integer",
             "OrderDesc" => "nullable|boolean"
-
         ];
     }
 }

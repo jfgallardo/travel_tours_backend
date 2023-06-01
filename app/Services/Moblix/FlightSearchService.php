@@ -19,7 +19,7 @@ class FlightSearchService
         ];
         $this->authService->setHeaders($headers);
     }
-    public function fligthSearch(array $data, string $filter)
+    public function fligthSearch(array $data)
     {
         $response = Http::timeout(60)->withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
         if ($response->json()['Erro']) {

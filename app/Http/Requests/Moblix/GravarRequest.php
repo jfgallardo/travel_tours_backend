@@ -27,6 +27,7 @@ class GravarRequest extends FormRequest
             "Adultos" => "required|integer",
             "Criancas" => "required|integer",
             "Bebes" => "required|integer",
+            "IdCliente" => "required|integer",
             "IdStatus" => "required|integer",
             "IdMeioPagamento" => "required|integer",
             "IdPedidoTipo" => "required|integer",

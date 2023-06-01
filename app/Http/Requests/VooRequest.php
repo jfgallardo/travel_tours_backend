@@ -40,7 +40,8 @@ class VooRequest extends FormRequest
             "ApenasVoosComBagagem" =>  "nullable|boolean",
             "ApenasVoosDiretos" => "nullable|boolean",
             "BuscarVoosComBagagem" => "nullable|boolean",
-            "BuscarVoosSemBagagem" => "nullable|boolean"
+            "BuscarVoosSemBagagem" => "nullable|boolean",
+            "Pagante" => "nullable|boolean"
         ];
     }
 }
