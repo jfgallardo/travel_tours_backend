@@ -2,11 +2,12 @@
 
 namespace App\Services\Moblix;
 
+use App\Services\Pagarme\PagarmeService;
 use Illuminate\Support\Facades\Http;
 
 class GravarService
 {
-    function __construct(private AuthService $authService)
+    function __construct(private AuthService $authService, private PagarmeService $pagarmeService)
     {
         $authService->autenticar();
         $headers = [
@@ -18,7 +19,9 @@ class GravarService
 
     public function Gravar(array $data)
     {
-        $response = Http::withHeaders($this->authService->getHeaders())->post(env('GRAVAR_MOBLIX'), $data);
-        return $response->json();
+        //llamar a pagarmeService y ver si funciona GetCustomers()
+        $this->pagarmeService->Transaction();
+        //$response = Http::withHeaders($this->authService->getHeaders())->post(env('GRAVAR_MOBLIX'), $data);
+        //return $response->json();
     }
 }
