@@ -133,4 +133,9 @@ class AuthService
 
         PasswordReset::where('email', $email)->delete();
     }
+
+    public function logout()
+    {
+        auth()->logout();
+    }
 }

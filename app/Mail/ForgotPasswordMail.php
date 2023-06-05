@@ -35,7 +35,7 @@ class ForgotPasswordMail extends Mailable
         return $this->view('emails.forgot_password')
             ->subject('Alteracao de senha')
             ->with([
-                'resetPasswordLink' => config('app.url') . '/recuperar-senha?token=' . $this->token
+                'resetPasswordLink' => 'https://mrtravelandtours.com/recuperar-senha?token=' . $this->token
             ]);
     }
 }
