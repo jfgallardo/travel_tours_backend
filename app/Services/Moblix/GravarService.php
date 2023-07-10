@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Http;
 
 class GravarService
 {
+    /**
+     * @param AuthService $authService
+     * @param PagarmeService $pagarmeService
+     */
     function __construct(private AuthService $authService, private PagarmeService $pagarmeService)
     {
         $authService->autenticar();
@@ -20,8 +24,12 @@ class GravarService
     public function Gravar(array $data)
     {
         //llamar a pagarmeService y ver si funciona GetCustomers()
-        $this->pagarmeService->Transaction();
-        //$response = Http::withHeaders($this->authService->getHeaders())->post(env('GRAVAR_MOBLIX'), $data);
-        //return $response->json();
+        //$wasPayed = $this->pagarmeService->Transaction();
+        $record = Http::withHeaders($this->authService->getHeaders())->post(env('GRAVAR_MOBLIX'), $data);
+
+        return [
+            'wasPayed' => '$wasPayed',
+            'record' => $record->json()
+        ];
     }
 }
