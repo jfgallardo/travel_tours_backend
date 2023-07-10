@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "nesbot/carbon": "^2.64",
+        "pagarme/pagarme-php": "^4.1",
         "predis/predis": "^2.0",
         "tymon/jwt-auth": "*"
     },

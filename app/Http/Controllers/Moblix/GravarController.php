@@ -16,7 +16,7 @@ class GravarController extends Controller
     public function gravar(GravarRequest $request)
     {
         $input = $request->validated();
-        $result = $this->gravarService->gravar($input);
+        $result = $this->gravarService->Gravar($input);
         
         return new GravarResource($result);
     }

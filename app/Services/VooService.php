@@ -19,17 +19,17 @@ class VooService
             'Origem' => $data['Origem'],
             'Destino' => $data['Destino'],
             'Ida' => $data['Ida'],
-            'Volta' => $data['Volta'],
             'Adultos' => $data['Adultos'],
             'Criancas' => $data['Criancas'],
             'Bebes' => $data['Bebes'],
-            'Companhia' => $data['Companhia'][0] ?? 1,
-            'OrderBy' => $data['OrderBy'] ?? 'price',
-            'IsDesc' => $data['IsDesc'] ?? false,
-            'Cabine' => (int)$data['Cabine'] ?? -1,
-            /* 'Pagante' => $data['Pagante'] ?? false */
+            'Companhia' => $data['Companhia'],
+            'Cabine' => $data['Cabine'],
         ];
 
-        return $this->flightMoblix->fligthSearch($dataMoblix);
+        if (array_key_exists('Volta', $data)) {
+            $dataMoblix['Volta'] = $data['Volta'];
+        }
+
+        return $this->flightMoblix->flightSearch($dataMoblix);
     }
 }

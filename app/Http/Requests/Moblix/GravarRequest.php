@@ -24,18 +24,13 @@ class GravarRequest extends FormRequest
     public function rules()
     {
         return [
-            "Adultos" => "required|integer",
-            "Criancas" => "required|integer",
-            "Bebes" => "required|integer",
-            "IdCliente" => "required|integer",
-            "IdStatus" => "required|integer",
-            "IdMeioPagamento" => "required|integer",
-            "IdPedidoTipo" => "required|integer",
-            "IdStatusPagamento" => "required|integer",
-            "Passageiro" => "nullable|array",
-            "Parcelas" => "nullable|integer",
-            "Viagem" => "required|array",
-            "Observacoes" => "nullable|string"
+            "Email" => "required|string",
+            "Passageiros" => "required|array",
+            "Ida" => "array|required",
+            "pagante" => "array|nullable",
+            "TokenConsultaIda" => "string|required",
+            "IdMeioPagamento" => "integer|nullable",
+            "ValorParcelaPS" => "numeric|required"
         ];
     }
 }
