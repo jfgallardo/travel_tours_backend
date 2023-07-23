@@ -57,7 +57,7 @@ class FlightSearchService
             $validatingBy = $flight['validatingBy'];
 
             $segments = $flight['segments'];
-            $segmentsBack = $flight['segmentsBack'];
+            $segmentsBack = $flight['segmentsBack'] ?? [];
 
             foreach ($segments as &$segment) {
                 $segment['fareGroup'] = $fareGroup;
@@ -65,10 +65,12 @@ class FlightSearchService
                 $segment['tokenUnique'] = Str::random(60);
             }
 
-            foreach ($segmentsBack as &$segmentBack) {
-                $segmentBack['fareGroup'] = $fareGroup;
-                $segmentBack['validatingBy'] = $validatingBy;
-                $segmentBack['tokenUnique'] = Str::random(60);
+            if (isset($segmentsBack)) {
+                foreach ($segmentsBack as &$segmentBack) {
+                    $segmentBack['fareGroup'] = $fareGroup;
+                    $segmentBack['validatingBy'] = $validatingBy;
+                    $segmentBack['tokenUnique'] = Str::random(60);
+                }
             }
 
             $allSegments = array_merge($allSegments, $segments, $segmentsBack);
