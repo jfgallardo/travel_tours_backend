@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsaasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Moblix\GravarController;
 use App\Http\Controllers\Moblix\ListarController;
@@ -44,6 +45,10 @@ Route::prefix('v1')->group(function () {
         Route::post('listar', [ListarController::class, 'listar']);
         Route::post('gravar-pessoa', [PessoaFisicaController::class, 'gravar']);
         Route::post('get-pessoa', [PessoaFisicaController::class, 'getPessoa']);
+    });
+
+    Route::prefix('payment')->group(function () {
+        Route::post('pix', [AsaasController::class, 'newCharge']);
     });
 
     /*  Route::prefix('moblix')->group(function () {

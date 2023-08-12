@@ -26,10 +26,6 @@ class GravarService
         //llamar a pagarmeService y ver si funciona GetCustomers()
         //$wasPayed = $this->pagarmeService->Transaction();
         $record = Http::withHeaders($this->authService->getHeaders())->post(env('GRAVAR_MOBLIX'), $data);
-
-        return [
-            'wasPayed' => '$wasPayed',
-            'record' => $record->json()
-        ];
+        return $record->json();
     }
 }

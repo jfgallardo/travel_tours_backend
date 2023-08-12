@@ -23,6 +23,7 @@ class FlightSearchService
     public function flightSearch(array $data): array
     {
         do {
+            set_time_limit(120); 
             $response = Http::withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
             $completed = $response->json()['Completed'];
 
