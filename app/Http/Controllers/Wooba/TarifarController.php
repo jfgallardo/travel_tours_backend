@@ -9,14 +9,15 @@ use App\Services\Wooba\TarifarService;
 
 class TarifarController extends Controller
 {
-    
-    public function __construct(private TarifarService $tarifa){}    
+    public function __construct(private TarifarService $tarifa)
+    {
+    }
 
     public function tarifar(TarifarRequest $request)
     {
         $input = $request->validated();
         $result = $this->tarifa->tarifar($input);
-       
+
         return new TarifarCollection($result);
     }
 }

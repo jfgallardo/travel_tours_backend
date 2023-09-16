@@ -2,20 +2,18 @@
 
 namespace App\Services\Moblix;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
 class FlightSearchService
 {
-
-    function __construct(private AuthService $authService)
+    public function __construct(private AuthService $authService)
     {
         $authService->autenticar();
         $headers = [
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->authService->getToken()
+            'Authorization' => 'Bearer ' . $this->authService->getToken(),
         ];
         $this->authService->setHeaders($headers);
     }
@@ -23,7 +21,7 @@ class FlightSearchService
     public function flightSearch(array $data): array
     {
         do {
-            set_time_limit(120); 
+            set_time_limit(120);
             $response = Http::withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
             $completed = $response->json()['Completed'];
 
@@ -37,7 +35,7 @@ class FlightSearchService
 
         if ($response->json()['Erro']) {
             return [
-                "Error" => $response->json()['Erro']
+                'Error' => $response->json()['Erro'],
             ];
         }
 
@@ -78,11 +76,11 @@ class FlightSearchService
         }
 
         return [
-            "totalItems" => $response->json()['TotalItens'],
-            "completed" => $response->json()['Completed'],
-            "meta" => $meta,
-            "flights" => $allSegments,
-            "Platform" => 1
+            'totalItems' => $response->json()['TotalItens'],
+            'completed' => $response->json()['Completed'],
+            'meta' => $meta,
+            'flights' => $allSegments,
+            'Platform' => 1,
         ];
 
         // $response = Http::timeout(60)->withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
@@ -144,8 +142,10 @@ class FlightSearchService
             foreach ($voo as &$value) {
                 $value['Token'] = Str::random(60);
             }
+
             return $voo;
         }
+
         return [];
     }
 
@@ -157,6 +157,7 @@ class FlightSearchService
             foreach ($voo as &$value) {
                 $value['Token'] = Str::random(60);
             }
+
             return $voo;
         }
 
@@ -170,21 +171,31 @@ class FlightSearchService
 
     private function getAirportsIata($v_one, $v_two)
     {
-        $iatas = array();
-        if (!$v_one && !$v_two) return array();
+        $iatas = [];
+        if (!$v_one && !$v_two) {
+            return [];
+        }
 
         foreach ($v_one as $voo) {
             foreach ($voo['Voos'] as $item) {
-                if (!in_array($item['Destino'], $iatas)) array_push($iatas, $item['Destino']);
-                if (!in_array($item['Origem'], $iatas)) array_push($iatas, $item['Origem']);
+                if (!in_array($item['Destino'], $iatas)) {
+                    array_push($iatas, $item['Destino']);
+                }
+                if (!in_array($item['Origem'], $iatas)) {
+                    array_push($iatas, $item['Origem']);
+                }
             }
         }
 
         if (is_array($v_two) && count($v_two) > 0) {
             foreach ($v_two as $voo) {
                 foreach ($voo['Voos'] as $item) {
-                    if (!in_array($item['Destino'], $iatas)) array_push($iatas, $item['Destino']);
-                    if (!in_array($item['Origem'], $iatas)) array_push($iatas, $item['Origem']);
+                    if (!in_array($item['Destino'], $iatas)) {
+                        array_push($iatas, $item['Destino']);
+                    }
+                    if (!in_array($item['Origem'], $iatas)) {
+                        array_push($iatas, $item['Origem']);
+                    }
                 }
             }
         }

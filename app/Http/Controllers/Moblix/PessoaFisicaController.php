@@ -8,11 +8,12 @@ use App\Http\Requests\Moblix\GravarPfRequest;
 use App\Http\Resources\GetPessoaResource;
 use App\Http\Resources\GravarPfResource;
 use App\Services\Moblix\PessoaFisicaService;
-use Illuminate\Http\Request;
 
 class PessoaFisicaController extends Controller
 {
-    function __construct(private PessoaFisicaService $pfService) {}
+    public function __construct(private PessoaFisicaService $pfService)
+    {
+    }
 
     public function gravar(GravarPfRequest $request)
     {

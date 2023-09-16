@@ -9,13 +9,15 @@ use App\Services\Wooba\RegraDaTarifaService;
 
 class RegraDaTarifaController extends Controller
 {
-    public function __construct(private RegraDaTarifaService $regra){}
-    
+    public function __construct(private RegraDaTarifaService $regra)
+    {
+    }
+
     public function obterRegraDaTarifa(RegraDaTarifaRequest $request)
     {
         $input = $request->validated();
         $result = $this->regra->obterRegraDaTarifa($input);
-    
+
         return new RegraDaTarifaCollection($result);
     }
 }

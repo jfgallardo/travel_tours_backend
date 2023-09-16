@@ -10,7 +10,7 @@ class InvalidDateOutException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'Wrong date out'
+            'message' => 'Wrong date out',
         ], 400);
     }
 }

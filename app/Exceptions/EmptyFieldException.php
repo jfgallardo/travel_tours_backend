@@ -10,7 +10,7 @@ class EmptyFieldException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'Field empty!'
+            'message' => 'Field empty!',
         ], 400);
     }
 }

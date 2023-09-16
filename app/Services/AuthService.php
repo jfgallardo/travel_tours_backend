@@ -5,13 +5,13 @@ namespace App\Services;
 use App\Events\ForgotPassword;
 use App\Events\UserRegistered;
 use App\Exceptions\EmailNotVerifiedException;
-use App\Models\User;
-use Illuminate\Support\Str;
 use App\Exceptions\LoginInvalidException;
 use App\Exceptions\ResetPasswordTokenInvalidException;
 use App\Exceptions\UserHasBeenTakenException;
 use App\Exceptions\VerifyEmailTokenInvalidException;
 use App\Models\PasswordReset;
+use App\Models\User;
+use Illuminate\Support\Str;
 
 class AuthService
 {
@@ -29,7 +29,7 @@ class AuthService
 
         $login = [
             'email' => $email,
-            'password' => $password
+            'password' => $password,
         ];
 
         if (!$token = auth()->attempt($login)) {
@@ -39,7 +39,6 @@ class AuthService
         return [
             'access_token' => $token,
             'type_token' => 'Bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
         ];
     }
 
@@ -112,7 +111,7 @@ class AuthService
 
         PasswordReset::create([
             'email' => $user->email,
-            'token' => $token
+            'token' => $token,
         ]);
 
         event(new ForgotPassword($user, $token));

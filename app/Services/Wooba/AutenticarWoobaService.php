@@ -11,17 +11,19 @@ class AutenticarWoobaService
 
     public function autenticar()
     {
-        if ($this->token) return;
+        if ($this->token) {
+            return;
+        }
 
         $body = [
             'login' => env('LOGIN_WCF'),
-            'senha' => env('SENHA_WCF')
+            'senha' => env('SENHA_WCF'),
         ];
 
         $headers = [
             'Content-Type' => 'application/json',
             'developer-token' => env('DEVELOPER_TOKEN'),
-            'developer-access-code' => $this->encrypt_data()
+            'developer-access-code' => $this->encrypt_data(),
         ];
 
         $this->setHeaders($headers);
@@ -31,7 +33,6 @@ class AutenticarWoobaService
 
         $this->setToken($response->json());
     }
-    
 
     /**
      ** Asigna los headers para realizar la peticion al Web Service.
@@ -42,6 +43,7 @@ class AutenticarWoobaService
     public function setHeaders(array $value): self
     {
         $this->headers = $value;
+
         return $this;
     }
 
@@ -54,21 +56,22 @@ class AutenticarWoobaService
     public function setToken(string $value): self
     {
         $this->token = $value;
+
         return $this;
     }
 
-/**
- * Retorna Token 
- *
- * @return $token
- */
+    /**
+     * Retorna Token.
+     *
+     * @return $token
+     */
     public function getToken()
     {
         return $this->token;
     }
 
     /**
-     * Retorna headers para servicio Wooba
+     * Retorna headers para servicio Wooba.
      *
      * @return $headers
      */
@@ -78,17 +81,17 @@ class AutenticarWoobaService
     }
 
     /**
-     * Retorna datos para accesar a servicio wooba
+     * Retorna datos para accesar a servicio wooba.
      *
      * @return array
      */
     public function accessToWooba()
     {
-       return [
-            "Login" => env('LOGIN_WCF'),
-            "Senha" => env('SENHA_WCF'),
-            "Token" => $this->getToken()
-        ];
+        return [
+             'Login' => env('LOGIN_WCF'),
+             'Senha' => env('SENHA_WCF'),
+             'Token' => $this->getToken(),
+         ];
     }
 
     /**
@@ -103,11 +106,12 @@ class AutenticarWoobaService
 
     private function encrypt_data()
     {
-        $current_date = date("d/m/Y");
+        $current_date = date('d/m/Y');
         $binary_data = env('BINARY_DATA');
-        $encry = strval($binary_data)  . '|' . $current_date;
+        $encry = strval($binary_data) . '|' . $current_date;
         $public_key = openssl_pkey_get_public(file_get_contents('public_key.pem'));
         openssl_public_encrypt($encry, $data_, $public_key);
+
         return base64_encode($data_);
     }
 }

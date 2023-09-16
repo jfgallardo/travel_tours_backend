@@ -6,17 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DisponibilidadeMultiplaRequest;
 use App\Http\Resources\DisponibilidadeCollection;
 use App\Services\Wooba\DisponibilidadeMultiplaService;
-use Illuminate\Http\Request;
 
 class DisponibilidadeMultiplaController extends Controller
 {
-    public function __construct(private DisponibilidadeMultiplaService $disponibilidadeMultiplaService){}
+    public function __construct(private DisponibilidadeMultiplaService $disponibilidadeMultiplaService)
+    {
+    }
 
     public function disponibilidadeMultipla(DisponibilidadeMultiplaRequest $request)
     {
         $input = $request->validated();
         $result = $this->disponibilidadeMultiplaService->disponibilidadeMultipla($input);
-    
+
         return new DisponibilidadeCollection($result);
     }
 }

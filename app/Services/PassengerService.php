@@ -14,20 +14,22 @@ class PassengerService
 
     public function createPassenger(array $payload = null)
     {
-        return  Passenger::create($payload);
+        return Passenger::create($payload);
     }
 
     public function updatePassenger(array $payload, int $id)
     {
-       
+
         $passenger = Passenger::find($id);
+
         return $passenger->update($payload);
     }
 
     public function deletePassenger(int $id)
     {
-       
+
         $passenger = Passenger::find($id);
+
         return $passenger->delete();
     }
 

@@ -35,7 +35,7 @@ class StorePassengerRequest extends FormRequest
             'pass_validity' => 'required|date',
             'pass_issue' => 'required|date',
             'contry_issue' => 'required|max:50',
-            'contry_residence' => 'required|max:50'
+            'contry_residence' => 'required|max:50',
         ];
     }
 
@@ -48,7 +48,7 @@ class StorePassengerRequest extends FormRequest
     {
         return [
             'required' => 'Campo obrigatorio',
-            'string' => 'Campo somente texto'
+            'string' => 'Campo somente texto',
         ];
     }
 }

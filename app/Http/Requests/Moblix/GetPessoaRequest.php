@@ -24,7 +24,7 @@ class GetPessoaRequest extends FormRequest
     public function rules()
     {
         return [
-            "Id" => "required|integer"
+            'Id' => 'required|integer',
         ];
     }
 }

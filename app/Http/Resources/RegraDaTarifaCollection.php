@@ -16,7 +16,7 @@ class RegraDaTarifaCollection extends ResourceCollection
     {
         return [
             'Exception' => $this->collection['Exception'],
-            'RegraTarifaria' => $this->collection['RegraTarifaria']
+            'RegraTarifaria' => $this->collection['RegraTarifaria'],
         ];
     }
 }

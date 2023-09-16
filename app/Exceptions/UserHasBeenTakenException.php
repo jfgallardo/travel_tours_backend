@@ -10,7 +10,7 @@ class UserHasBeenTakenException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'User has been taken'
+            'message' => 'User has been taken',
         ], 400);
     }
 }

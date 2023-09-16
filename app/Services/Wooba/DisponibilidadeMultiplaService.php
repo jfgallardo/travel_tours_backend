@@ -9,7 +9,7 @@ class DisponibilidadeMultiplaService
 {
     public function __construct(private AutenticarWoobaService $auth)
     {
-       $auth->autenticar();
+        $auth->autenticar();
     }
 
     public function disponibilidadeMultipla(array $data)
@@ -17,18 +17,19 @@ class DisponibilidadeMultiplaService
         $body = array_merge($data, $this->auth->accessToWooba());
         $response = Http::retry(3, 100)->withHeaders($this->auth->getHeaders())->post(env('DISPONIBILIDADE'), $body);
         $dataJson = $response->json();
-        foreach ($dataJson["ViagensTrecho1"] as $value) {
-            Redis::set($value["Id"], json_encode($value));
-            Redis::expire($value["Id"], 1800);
+        foreach ($dataJson['ViagensTrecho1'] as $value) {
+            Redis::set($value['Id'], json_encode($value));
+            Redis::expire($value['Id'], 1800);
         }
-        if ($dataJson["ViagensTrecho2"]) {
-            foreach ($dataJson["ViagensTrecho2"] as $value) {
-                Redis::set($value["Id"], json_encode($value));
-                Redis::expire($value["Id"], 1800);
+        if ($dataJson['ViagensTrecho2']) {
+            foreach ($dataJson['ViagensTrecho2'] as $value) {
+                Redis::set($value['Id'], json_encode($value));
+                Redis::expire($value['Id'], 1800);
             }
         }
 
         $ofertasXtrecho = $this->ofertaDesde($dataJson);
+
         return array_merge($dataJson, $ofertasXtrecho);
     }
 

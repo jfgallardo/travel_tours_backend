@@ -34,7 +34,7 @@ class SearchFlightRequest extends FormRequest
             'Companhia' => 'nullable|numeric',
             'OrderBy' => 'nullable|string',
             'IsDesc' => 'nullable|boolean',
-            'Cabine' => 'nullable'
+            'Cabine' => 'nullable',
         ];
     }
 }

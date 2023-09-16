@@ -9,7 +9,6 @@ use App\Http\Requests\AuthResetPasswordRequest;
 use App\Http\Requests\AuthVerifyEmailRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
-use Illuminate\Http\Client\Response;
 
 class AuthController extends Controller
 {
@@ -67,7 +66,7 @@ class AuthController extends Controller
     {
         $input = $request->validated();
         $this->authService->forgotPassword($input['email']);
-        
+
         return response()->json([
             'emailSend' => true,
         ]);
@@ -83,8 +82,10 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout() {
+    public function logout()
+    {
         $this->authService->logout();
+
         return response()->json(['message' => 'User successfully signed out']);
     }
 }

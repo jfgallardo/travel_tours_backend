@@ -16,7 +16,7 @@ class TarifarCollection extends ResourceCollection
     {
         return [
             'Exception' => $this->collection['Exception'],
-            'Data' => $this->collection
+            'Data' => $this->collection,
         ];
     }
 }

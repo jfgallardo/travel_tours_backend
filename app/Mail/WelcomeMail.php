@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class WelcomeMail extends Mailable
 {
@@ -34,7 +33,7 @@ class WelcomeMail extends Mailable
         return $this->view('emails.welcome')
             ->subject('Bem-vindo ao ' . config('app.name'))
             ->with([
-                'verifyEmailLink' => 'https://mrtravelandtours.com/register/verify-email?token=' . $this->user->confirmation_token
+                'verifyEmailLink' => 'https://mrtravelandtours.com/register/verify-email?token=' . $this->user->confirmation_token,
             ]);
     }
 }

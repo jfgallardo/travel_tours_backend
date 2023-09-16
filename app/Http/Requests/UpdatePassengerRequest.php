@@ -34,11 +34,11 @@ class UpdatePassengerRequest extends FormRequest
             'pass_validity' => 'required|date',
             'pass_issue' => 'required|date',
             'contry_issue' => 'required|max:50',
-            'contry_residence' => 'required|max:50'
+            'contry_residence' => 'required|max:50',
         ];
     }
 
-     /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -47,7 +47,7 @@ class UpdatePassengerRequest extends FormRequest
     {
         return [
             'required' => 'Campo obrigatorio',
-            'string' => 'Campo somente texto'
+            'string' => 'Campo somente texto',
         ];
     }
 }

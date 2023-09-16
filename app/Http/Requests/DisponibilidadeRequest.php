@@ -41,7 +41,7 @@ class DisponibilidadeRequest extends FormRequest
             'QuantidadeCriancas' => 'required|integer',
             'Recomendacao' => 'nullable',
             'Sistema' => 'nullable|integer',
-            'QuantidadeDeVoos' => 'nullable|integer', 
+            'QuantidadeDeVoos' => 'nullable|integer',
         ];
     }
 }

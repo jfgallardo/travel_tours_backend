@@ -42,7 +42,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     /**
@@ -74,7 +74,13 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function passengers(){
+    public function passengers()
+    {
         return $this->hasMany(Passenger::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

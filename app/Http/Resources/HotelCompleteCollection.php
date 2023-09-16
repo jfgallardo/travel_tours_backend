@@ -16,7 +16,7 @@ class HotelCompleteCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection['Data'],
-            'error' => $this->collection['ExceptionErro']
+            'error' => $this->collection['ExceptionErro'],
         ];
     }
 }

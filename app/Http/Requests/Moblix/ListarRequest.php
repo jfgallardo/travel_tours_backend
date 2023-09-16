@@ -24,19 +24,19 @@ class ListarRequest extends FormRequest
     public function rules()
     {
         return [
-            "PageSize" => "nullable|integer",
-            "PageNumber" => "nullable|integer",
-            "OrderBy" => "nullable|string",
-            "Id" => "nullable|string",
-            "IdCliente" => "nullable|integer",
-            "IdUsuario" => "nullable|integer",
-            "IdStatus" => "nullable|integer",
-            "IdParceiro" => "nullable|integer",
-            "IdExterno" => "nullable|integer",
-            "DataInicio" => "nullable|string",
-            "DataFim" => "nullable|string",
-            "IdStatusPagamentoPagSeguro" => "nullable|integer",
-            "OrderDesc" => "nullable|boolean"
+            'PageSize' => 'nullable|integer',
+            'PageNumber' => 'nullable|integer',
+            'OrderBy' => 'nullable|string',
+            'Id' => 'nullable|string',
+            'IdCliente' => 'nullable|integer',
+            'IdUsuario' => 'nullable|integer',
+            'IdStatus' => 'nullable|integer',
+            'IdParceiro' => 'nullable|integer',
+            'IdExterno' => 'nullable|integer',
+            'DataInicio' => 'nullable|string',
+            'DataFim' => 'nullable|string',
+            'IdStatusPagamentoPagSeguro' => 'nullable|integer',
+            'OrderDesc' => 'nullable|boolean',
         ];
     }
 }

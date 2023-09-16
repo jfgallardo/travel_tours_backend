@@ -26,7 +26,7 @@ class AuthResetPasswordRequest extends FormRequest
         return [
             'email' => 'required|email',
             'password' => 'required|string|min:8|max:30|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+/',
-            'token' => 'required|string'
+            'token' => 'required|string',
         ];
     }
 }

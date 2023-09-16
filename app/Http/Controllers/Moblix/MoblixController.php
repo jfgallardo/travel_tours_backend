@@ -5,11 +5,8 @@ namespace App\Http\Controllers\Moblix;
 use App\Http\Requests\HotelAutoCompletelRequest;
 use App\Http\Requests\HotelInformationMoblixRequest;
 use App\Http\Requests\HotelSearchMoblixRequest;
-use App\Http\Requests\MoblixQueryRequest;
 use App\Http\Resources\HotelCompleteCollection;
-use App\Http\Resources\MoblixCollection;
 use App\Services\Moblix\MoblixService;
-
 
 class MoblixController
 {
@@ -22,7 +19,7 @@ class MoblixController
 
         $headers = [
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->moblixService->getToken()
+            'Authorization' => 'Bearer ' . $this->moblixService->getToken(),
         ];
         $this->moblixService->setHeaders($headers);
     }
@@ -32,18 +29,21 @@ class MoblixController
 
         $input = $request->validated();
         $result = $this->moblixService->hotelAutoComplete($input);
+
         return new HotelCompleteCollection($result);
     }
 
     public function hotelAvailable(HotelSearchMoblixRequest $request)
     {
         $input = $request->validated();
+
         return $this->moblixService->hotelAvailable($input);
     }
 
     public function hotelInformation(HotelInformationMoblixRequest $request)
     {
         $input = $request->validated();
+
         return $this->moblixService->hotelInformation($input);
     }
 

@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\Redis;
 
 class DisponibilidadeService
 {
-   
     public function __construct(private AutenticarWoobaService $auth)
     {
-       $auth->autenticar();
+        $auth->autenticar();
     }
 
     public function disponibilidade(array $data)
@@ -19,21 +18,22 @@ class DisponibilidadeService
         $response = Http::retry(3, 100)->withHeaders($this->auth->getHeaders())->post(env('DISPONIBILIDADE'), $body);
         $dataJson = $response->json();
 
-        if ($dataJson["ViagensTrecho1"]) {
-            foreach ($dataJson["ViagensTrecho1"] as $value) {
-                Redis::set($value["Id"], json_encode($value));
-                Redis::expire($value["Id"], 1800);
+        if ($dataJson['ViagensTrecho1']) {
+            foreach ($dataJson['ViagensTrecho1'] as $value) {
+                Redis::set($value['Id'], json_encode($value));
+                Redis::expire($value['Id'], 1800);
             }
         }
-        
-        if ($dataJson["ViagensTrecho2"]) {
-            foreach ($dataJson["ViagensTrecho2"] as $value) {
-                Redis::set($value["Id"], json_encode($value));
-                Redis::expire($value["Id"], 1800);
+
+        if ($dataJson['ViagensTrecho2']) {
+            foreach ($dataJson['ViagensTrecho2'] as $value) {
+                Redis::set($value['Id'], json_encode($value));
+                Redis::expire($value['Id'], 1800);
             }
         }
 
         $ofertasXtrecho = $this->ofertaDesde($dataJson);
+
         return array_merge($dataJson, $ofertasXtrecho);
     }
 
@@ -63,5 +63,4 @@ class DisponibilidadeService
 
         return $offersCompany;
     }
-
 }

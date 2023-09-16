@@ -10,7 +10,7 @@ class ResetPasswordTokenInvalidException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'Reset password token not valid.'
+            'message' => 'Reset password token not valid.',
         ], 400);
     }
 }

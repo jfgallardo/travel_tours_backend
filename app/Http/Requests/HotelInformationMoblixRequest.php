@@ -26,7 +26,7 @@ class HotelInformationMoblixRequest extends FormRequest
         return [
             'HotelSearchCode' => 'required|string',
             'IdProvider' => 'required|numeric',
-            'Language' => 'required|string'
+            'Language' => 'required|string',
         ];
     }
 }

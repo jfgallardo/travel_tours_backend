@@ -38,7 +38,7 @@ class AuthRegisterRequest extends FormRequest
             'mainPhone' => 'required|string',
             'alternativePhone' => 'nullable|string',
             'email' => 'required|email',
-            'password' => 'required|string|min:8|max:30|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+/'
+            'password' => 'required|string|min:8|max:30|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+/',
         ];
     }
 }

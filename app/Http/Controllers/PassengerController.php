@@ -5,17 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePassengerRequest;
 use App\Http\Requests\UpdatePassengerRequest;
 use App\Http\Resources\PassengerResource;
-use App\Models\User;
 use App\Services\PassengerService;
 use Illuminate\Http\Request;
 
 class PassengerController extends Controller
 {
-
-    function __construct(private PassengerService $passengerService){
+    public function __construct(private PassengerService $passengerService)
+    {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +23,9 @@ class PassengerController extends Controller
     public function index()
     {
         $passenger = $this->passengerService->getPassengers();
-       
+
         return PassengerResource::collection($passenger);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -43,12 +41,11 @@ class PassengerController extends Controller
         return new PassengerResource($passenger);
     }
 
-  
     /**
-     * Update Passenger
+     * Update Passenger.
      *
      * @param UpdatePassengerRequest $request
-     * @param integer $id
+     * @param int $id
      * @return void
      */
     public function updatePassenger(UpdatePassengerRequest $request, int $id)
@@ -57,31 +54,31 @@ class PassengerController extends Controller
         $editItemFlag = $this->passengerService->updatePassenger($payload, $id);
 
         return response()->json([
-            "isEdit" => $editItemFlag
-        ]) ;
+            'isEdit' => $editItemFlag,
+        ]);
 
     }
 
-   /**
-    * Delete Passenger
-    *
-    * @param integer $id
-    * @return void
-    */
+    /**
+     * Delete Passenger.
+     *
+     * @param int $id
+     * @return void
+     */
     public function deletePassenger(int $id)
     {
         $deleteItemFlag = $this->passengerService->deletePassenger($id);
-        
+
         return response()->json([
-            "isDelete" => $deleteItemFlag
-        ]) ;
+            'isDelete' => $deleteItemFlag,
+        ]);
     }
 
     public function getByIdUser(Request $request)
     {
         $userId = $request->query()['user'];
         $passengers = $this->passengerService->getPassengersByUser($userId);
-        
+
         return PassengerResource::collection($passengers);
     }
 }

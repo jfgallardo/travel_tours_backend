@@ -16,7 +16,7 @@ class DetalhesdeFamiliaCollection extends ResourceCollection
     {
         return [
             'Exception' => $this->collection['Exception'],
-            'Familias' => $this->collection['Familias']
+            'Familias' => $this->collection['Familias'],
         ];
     }
 }

@@ -16,9 +16,6 @@ class AsaasClientRequest extends FormRequest
         return true;
     }
 
-    /**  'body' => '{,"postalCode":"76420000","notificationDisabled":true}',
- */
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,18 +24,18 @@ class AsaasClientRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string",
-            "cpfCnpj" => "required|string",
-            "email" => "nullable|email",
-            "phone" => "nullable|string",
-            "mobilePhone" => "nullable|string",
-            "address" => "nullable|string",
-            "addressNumber" => "nullable|string",
-            "complement" => "nullable|string",
-            "province" => "nullable|string",
-            "postalCode" => "nullable|string",
-            "notificationDisabled" => "nullable|boolean",
-            "value" => "required|numeric"
+            'name' => 'required|string',
+            'cpfCnpj' => 'required|string',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string',
+            'mobilePhone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'addressNumber' => 'nullable|string',
+            'complement' => 'nullable|string',
+            'province' => 'nullable|string',
+            'postalCode' => 'nullable|string',
+            'notificationDisabled' => 'nullable|boolean',
+            'value' => 'required|numeric',
         ];
     }
 }

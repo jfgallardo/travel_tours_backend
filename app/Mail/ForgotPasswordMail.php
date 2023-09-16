@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -12,7 +11,8 @@ class ForgotPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user, $token;
+    public $user;
+    public $token;
 
     /**
      * Create a new message instance.
@@ -35,7 +35,7 @@ class ForgotPasswordMail extends Mailable
         return $this->view('emails.forgot_password')
             ->subject('Alteracao de senha')
             ->with([
-                'resetPasswordLink' => 'https://mrtravelandtours.com/recuperar-senha?token=' . $this->token
+                'resetPasswordLink' => 'https://mrtravelandtours.com/recuperar-senha?token=' . $this->token,
             ]);
     }
 }

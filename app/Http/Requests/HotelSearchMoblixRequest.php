@@ -29,7 +29,7 @@ class HotelSearchMoblixRequest extends FormRequest
             'Checkout' => 'required|string',
             'Rooms' => 'required',
             'IdProvider' => 'required|numeric',
-            'NationalityLeaderPax' => 'required|string'
+            'NationalityLeaderPax' => 'required|string',
         ];
     }
 }

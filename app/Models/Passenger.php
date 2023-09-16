@@ -9,7 +9,7 @@ class Passenger extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -26,7 +26,7 @@ class Passenger extends Model
         'pass_validity',
         'pass_issue',
         'contry_issue',
-        'contry_residence'
+        'contry_residence',
     ];
 
     public function user()

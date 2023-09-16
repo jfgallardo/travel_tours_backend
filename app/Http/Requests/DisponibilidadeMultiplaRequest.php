@@ -37,7 +37,7 @@ class DisponibilidadeMultiplaRequest extends FormRequest
             'Recomendacao' => 'nullable',
             'Sistema' => 'nullable|integer',
             'QuantidadeDeVoos' => 'nullable|integer',
-            'MultiplosTrechos' => 'required|array' 
+            'MultiplosTrechos' => 'required|array',
         ];
     }
 }

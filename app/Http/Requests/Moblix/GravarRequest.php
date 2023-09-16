@@ -24,13 +24,23 @@ class GravarRequest extends FormRequest
     public function rules()
     {
         return [
-            "Email" => "required|string",
-            "Passageiros" => "required|array",
-            "Ida" => "array|required",
-            "pagante" => "array|nullable",
-            "TokenConsultaIda" => "string|required",
-            "IdMeioPagamento" => "integer|nullable",
-            "ValorParcelaPS" => "numeric|required"
+            'ida' => 'array|required',
+            'ida.Email' => 'required|string',
+            'ida.Passageiros' => 'required|array',
+            'ida.Ida' => 'array|required',
+            'ida.pagante' => 'array|nullable',
+            'ida.TokenConsultaIda' => 'string|required',
+            'ida.IdMeioPagamento' => 'integer|nullable',
+            'ida.ValorParcelaPS' => 'numeric|required',
+
+            'volta' => 'array|nullable',
+            'volta.Email' => 'sometimes|required|required_if:volta,!=,null|string',
+            'volta.Passageiros' => 'sometimes|required|required_if:volta,!=,null|array',
+            'volta.Ida' => 'array|sometimes|required|required_if:volta,!=,null',
+            'volta.pagante' => 'array|nullable',
+            'volta.TokenConsultaIda' => 'string|sometimes|required|required_if:volta,!=,null',
+            'volta.IdMeioPagamento' => 'integer|nullable',
+            'volta.ValorParcelaPS' => 'numeric|sometimes|required|required_if:volta,!=,null',
         ];
     }
 }

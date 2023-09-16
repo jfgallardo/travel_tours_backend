@@ -16,7 +16,7 @@ class ReservarCollection extends ResourceCollection
     {
         return [
             'Exception' => $this->collection['Exception'],
-            'Reservas' => $this->collection['Reservas']
+            'Reservas' => $this->collection['Reservas'],
         ];
     }
 }

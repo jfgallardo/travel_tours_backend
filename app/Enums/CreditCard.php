@@ -11,7 +11,7 @@ enum CreditCard: int
 
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             static::Visa => 'Visa',
             static::MasterCard => 'Master Card',
             static::AmericanExpress => 'American Express',

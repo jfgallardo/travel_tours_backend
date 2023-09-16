@@ -24,18 +24,18 @@ class GravarPfRequest extends FormRequest
     public function rules()
     {
         return [
-            "Tipo" => "required|integer",
-            "IdPermissao" => "required|integer",
-            "Nome" => "required|string",
-            "Email" => "required|email",
-            "Cpf" => "required|string",
-            "Sexo" => "required|string",
-            "Nascimento" => "required|date",
-            "Senha" => "required|string",
-            "ConfirmaSenha" => "required|string",
-            "Ativo" => "required|boolean",
-            "Endereco" => "required|array",
-            "Contato" => "required|array"     
+            'Tipo' => 'required|integer',
+            'IdPermissao' => 'required|integer',
+            'Nome' => 'required|string',
+            'Email' => 'required|email',
+            'Cpf' => 'required|string',
+            'Sexo' => 'required|string',
+            'Nascimento' => 'required|date',
+            'Senha' => 'required|string',
+            'ConfirmaSenha' => 'required|string',
+            'Ativo' => 'required|boolean',
+            'Endereco' => 'required|array',
+            'Contato' => 'required|array',
         ];
     }
 }

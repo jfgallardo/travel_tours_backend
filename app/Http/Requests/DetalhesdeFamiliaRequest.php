@@ -29,7 +29,7 @@ class DetalhesdeFamiliaRequest extends FormRequest
             'Flex' => 'required|boolean',
             'Rota' => 'string|nullable',
             'Sistema' => 'numeric',
-            'ViagensMultiplas' => 'array|nullable'
+            'ViagensMultiplas' => 'array|nullable',
         ];
     }
 }

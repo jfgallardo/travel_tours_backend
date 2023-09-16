@@ -24,24 +24,24 @@ class VooRequest extends FormRequest
     public function rules()
     {
         return [
-            "Origem" => "required|size:3",
-            "Destino" => "required|size:3",
-            "Ida" => "required|date",
-            "Volta" => "nullable|date",
-            "Adultos" => "required|integer",
-            "Criancas" => "required|integer",
-            "Bebes" => "required|integer",
-            "Companhia" => "nullable|numeric",
-            "OrderBy" => "nullable|string",
-            "IsDesc" => "nullable|boolean",
-            "Cabine" => "nullable|numeric",
-            "Flex" => "nullable|boolean",
-            "Recomendacao" => "nullable|boolean",
-            "ApenasVoosComBagagem" =>  "nullable|boolean",
-            "ApenasVoosDiretos" => "nullable|boolean",
-            "BuscarVoosComBagagem" => "nullable|boolean",
-            "BuscarVoosSemBagagem" => "nullable|boolean",
-            "Pagante" => "nullable|boolean"
+            'Origem' => 'required|size:3',
+            'Destino' => 'required|size:3',
+            'Ida' => 'required|date',
+            'Volta' => 'nullable|date',
+            'Adultos' => 'required|integer',
+            'Criancas' => 'required|integer',
+            'Bebes' => 'required|integer',
+            'Companhia' => 'nullable|numeric',
+            'OrderBy' => 'nullable|string',
+            'IsDesc' => 'nullable|boolean',
+            'Cabine' => 'nullable|numeric',
+            'Flex' => 'nullable|boolean',
+            'Recomendacao' => 'nullable|boolean',
+            'ApenasVoosComBagagem' =>  'nullable|boolean',
+            'ApenasVoosDiretos' => 'nullable|boolean',
+            'BuscarVoosComBagagem' => 'nullable|boolean',
+            'BuscarVoosSemBagagem' => 'nullable|boolean',
+            'Pagante' => 'nullable|boolean',
         ];
     }
 }

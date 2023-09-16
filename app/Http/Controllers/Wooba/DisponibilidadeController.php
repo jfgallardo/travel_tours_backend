@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Redis;
 
 class DisponibilidadeController extends Controller
 {
-
-    public function __construct(private DisponibilidadeService $disponibilidade){}
-
+    public function __construct(private DisponibilidadeService $disponibilidade)
+    {
+    }
 
     public function disponibilidade(DisponibilidadeRequest $request)
     {
         $input = $request->validated();
         $result = $this->disponibilidade->disponibilidade($input);
-    
+
         return new DisponibilidadeCollection($result);
     }
 
@@ -26,5 +26,4 @@ class DisponibilidadeController extends Controller
     {
         return Redis::get($id);
     }
-
 }

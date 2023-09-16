@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\TradingPlatform;
+use Illuminate\Database\Seeder;
 
 class TradingPlatformSeeder extends Seeder
 {
@@ -16,10 +15,10 @@ class TradingPlatformSeeder extends Seeder
     public function run()
     {
         TradingPlatform::factory()->create([
-            'platform' => 'Moblix'
+            'platform' => 'Moblix',
         ]);
         TradingPlatform::factory()->create([
-            'platform' => 'Wooba'
+            'platform' => 'Wooba',
         ]);
     }
 }

@@ -25,7 +25,7 @@ class HotelAutoCompletelRequest extends FormRequest
     {
         return [
             'Query' => 'required|string',
-            'IdProvider' => 'required|numeric'
+            'IdProvider' => 'required|numeric',
         ];
     }
 }

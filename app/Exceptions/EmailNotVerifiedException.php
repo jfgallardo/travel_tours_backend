@@ -10,7 +10,7 @@ class EmailNotVerifiedException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'Email not verify.'
+            'message' => 'Email not verify.',
         ], 400);
     }
 }

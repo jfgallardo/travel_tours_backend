@@ -9,9 +9,10 @@ use App\Services\Wooba\DetalhesdeFamiliaService;
 
 class DetalhesdeFamiliaController extends Controller
 {
-    
-    public function __construct(private DetalhesdeFamiliaService $detalhes){}    
-    
+    public function __construct(private DetalhesdeFamiliaService $detalhes)
+    {
+    }
+
     public function detalhesDeFamilia(DetalhesdeFamiliaRequest $request)
     {
         $input = $request->validated();
@@ -19,5 +20,4 @@ class DetalhesdeFamiliaController extends Controller
 
         return new DetalhesdeFamiliaCollection($result);
     }
-
 }

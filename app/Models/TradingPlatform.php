@@ -10,6 +10,6 @@ class TradingPlatform extends Model
     use HasFactory;
 
     protected $fillable = [
-        'platform'
+        'platform',
     ];
 }

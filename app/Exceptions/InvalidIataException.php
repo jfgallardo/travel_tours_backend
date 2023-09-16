@@ -10,7 +10,7 @@ class InvalidIataException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'Wrong iata name'
+            'message' => 'Wrong iata name',
         ], 400);
     }
 }

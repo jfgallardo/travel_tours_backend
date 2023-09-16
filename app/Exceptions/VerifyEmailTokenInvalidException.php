@@ -10,7 +10,7 @@ class VerifyEmailTokenInvalidException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'Token not valid'
+            'message' => 'Token not valid',
         ], 400);
     }
 }

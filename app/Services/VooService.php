@@ -6,8 +6,7 @@ use App\Services\Moblix\FlightSearchService;
 
 class VooService
 {
-
-    function __construct(private FlightSearchService $flightMoblix)
+    public function __construct(private FlightSearchService $flightMoblix)
     {
     }
 

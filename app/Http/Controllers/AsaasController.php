@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AsaasClientRequest;
 use App\Services\AsaasService;
-use Illuminate\Http\Request;
+use App\Services\PaymentService;
 
 class AsaasController extends Controller
 {
-    function __construct(private AsaasService $assasService)
+    public function __construct(private AsaasService $assasService, private PaymentService $paymentService)
     {
     }
 
-    public function newCharge(AsaasClientRequest $asaasClient)
+    public function newCharge(AsaasClientRequest $asaasClient, string $type)
     {
         $input = $asaasClient->validated();
         $cpfCnpj = $input['cpfCnpj'];
@@ -28,16 +28,27 @@ class AsaasController extends Controller
             $cliente = $verifyCpfCnpj['data'];
         }
 
-
         $charge = [
-            'billingType' => 'PIX',
+            'billingType' => strtoupper($type),
             'customer' => $cliente['id'],
-            'dueDate' => date("Y-m-d"),
+            'dueDate' => date('Y-m-d'),
             'description' => 'Pagamento de reserva de voo',
-            'value' => $valueOfPix
+            'value' => $valueOfPix,
         ];
 
         $payment = $this->assasService->createNewCharge($charge);
+
+        $paymentLocal = [
+            'user_id' => auth()->user()->id,
+            'payment_id' => $payment['id'],
+            'customer' => $payment['customer'],
+            'description' => $payment['description'],
+            'billingType' => $payment['billingType'],
+            'status' => $payment['status'],
+        ];
+
+        $this->paymentService->createNewPayment($paymentLocal);
+
         return response()->json($payment);
     }
 }

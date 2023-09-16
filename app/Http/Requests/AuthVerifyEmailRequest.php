@@ -24,7 +24,7 @@ class AuthVerifyEmailRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' => 'required|string'
+            'token' => 'required|string',
         ];
     }
 }

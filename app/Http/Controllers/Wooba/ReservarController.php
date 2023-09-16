@@ -9,15 +9,16 @@ use App\Services\Wooba\ReservarService;
 
 class ReservarController extends Controller
 {
-
-    function __construct(private ReservarService $reservarService){}
+    public function __construct(private ReservarService $reservarService)
+    {
+    }
 
     public function reservar(ReservarRequest $request)
     {
-        
+
         $input = $request->validated();
         $result = $this->reservarService->reservar($input);
 
-        return new ReservarCollection( $result);
+        return new ReservarCollection($result);
     }
 }

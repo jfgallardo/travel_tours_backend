@@ -12,17 +12,19 @@ class WobbaService
 
     public function autenticar()
     {
-        if ($this->token) return;
+        if ($this->token) {
+            return;
+        }
 
         $body = [
             'login' => env('LOGIN_WCF'),
-            'senha' => env('SENHA_WCF')
+            'senha' => env('SENHA_WCF'),
         ];
 
         $headers = [
             'Content-Type' => 'application/json',
             'developer-token' => env('DEVELOPER_TOKEN'),
-            'developer-access-code' => $this->encrypt_data()
+            'developer-access-code' => $this->encrypt_data(),
         ];
 
         $this->setHeaders($headers);
@@ -37,18 +39,19 @@ class WobbaService
     {
         $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('DISPONIBILIDADE'), $body);
         $dataJson = $response->json();
-        foreach ($dataJson["ViagensTrecho1"] as $value) {
-            Redis::set($value["Id"], json_encode($value));
-            Redis::expire($value["Id"], 1800);
+        foreach ($dataJson['ViagensTrecho1'] as $value) {
+            Redis::set($value['Id'], json_encode($value));
+            Redis::expire($value['Id'], 1800);
         }
-        if ($dataJson["ViagensTrecho2"]) {
-            foreach ($dataJson["ViagensTrecho2"] as $value) {
-                Redis::set($value["Id"], json_encode($value));
-                Redis::expire($value["Id"], 1800);
+        if ($dataJson['ViagensTrecho2']) {
+            foreach ($dataJson['ViagensTrecho2'] as $value) {
+                Redis::set($value['Id'], json_encode($value));
+                Redis::expire($value['Id'], 1800);
             }
         }
 
         $ofertasXtrecho = $this->ofertaDesde($dataJson);
+
         return array_merge($dataJson, $ofertasXtrecho);
     }
 
@@ -61,18 +64,21 @@ class WobbaService
     public function obterRegraDaTarifa(array $body)
     {
         $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('OBTER_REGRA_DA_TARIFA'), $body);
+
         return $response->json();
     }
 
     public function detalhesDeFamilia(array $body)
     {
         $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('DETHALES_FAMILIA'), $body);
+
         return $response->json();
     }
 
     public function tarifar(array $body)
     {
         $response = Http::retry(3, 100)->withHeaders($this->headers)->post(env('TARIFAR'), $body);
+
         return $response->json();
     }
 
@@ -85,6 +91,7 @@ class WobbaService
     public function setHeaders(array $value): self
     {
         $this->headers = $value;
+
         return $this;
     }
 
@@ -97,6 +104,7 @@ class WobbaService
     public function setToken(string $value): self
     {
         $this->token = $value;
+
         return $this;
     }
 
@@ -117,11 +125,12 @@ class WobbaService
 
     private function encrypt_data()
     {
-        $current_date = date("d/m/Y");
+        $current_date = date('d/m/Y');
         $binary_data = env('BINARY_DATA');
-        $encry = strval($binary_data)  . '|' . $current_date;
+        $encry = strval($binary_data) . '|' . $current_date;
         $public_key = openssl_pkey_get_public(file_get_contents('public_key.pem'));
         openssl_public_encrypt($encry, $data_, $public_key);
+
         return base64_encode($data_);
     }
 
@@ -151,5 +160,4 @@ class WobbaService
 
         return $offersCompany;
     }
-
 }

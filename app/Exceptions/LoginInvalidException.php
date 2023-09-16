@@ -10,7 +10,7 @@ class LoginInvalidException extends Exception
     {
         return response()->json([
             'error' => class_basename($this),
-            'message' => 'Email and Password don\'t match'
+            'message' => 'Email and Password don\'t match',
         ], 401);
     }
 }
