@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\ForgotPassword;
+use App\Events\SendDataTransfer;
 use App\Events\UserRegistered;
+use App\Listeners\SendDataTransferNotification;
 use App\Listeners\SendForgotPasswordNotification;
 use App\Listeners\SendWelcomeNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ForgotPassword::class => [
             SendForgotPasswordNotification::class,
         ],
+        SendDataTransfer::class => [
+            SendDataTransferNotification::class
+        ]
     ];
 
     /**

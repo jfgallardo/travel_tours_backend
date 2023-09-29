@@ -16,26 +16,20 @@ class GravarController extends Controller
     {
         $input = $request->validated();
 
-        $ida = $input['ida'];
-        $volta = $input['volta'] ?? null;
+        $result = $this->gravarService->Gravar($input);
 
-        $result_ida = $this->gravarService->Gravar($ida);
-        $result_volta = ($volta !== null) ? $this->gravarService->Gravar($volta) : null;
-
-        if (empty($result_ida['Data']) || ($volta && empty($result_volta['Data']))) {
+        if (empty($result['Data'])) {
             return response()->json([
                 'message' => 'Error guardando los datos',
                 'error' => true,
-                'gravarIda' => $result_ida,
-                'gravarVolta' => $result_volta,
+                'gravar_result' => $result,
             ], 500);
         }
 
         return response()->json([
             'message' => 'Datos guardados correctamente',
             'error' => false,
-            'gravarIda' => $result_ida,
-            'gravarVolta' => $result_volta,
+            'data' => $result
         ]);
     }
 

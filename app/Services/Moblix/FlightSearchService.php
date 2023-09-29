@@ -25,63 +25,57 @@ class FlightSearchService
             $response = Http::withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
             $completed = $response->json()['Completed'];
 
-            if ($completed) {
-                break;
+            if ($response->json()['Erro']) {
+                return [
+                    'Error' => $response->json()['Erro'],
+                ];
+            }
+            $flights = [];
+            $meta = [];
+            $allSegments = [];
+
+            if (isset($response->json()['Data'][0]['flights'])) {
+                $flights = $response->json()['Data'][0]['flights'];
             }
 
-            sleep(1);
-
-        } while (true);
-
-        if ($response->json()['Erro']) {
-            return [
-                'Error' => $response->json()['Erro'],
-            ];
-        }
-
-        $flights = null;
-        $meta = null;
-        $allSegments = [];
-
-        if (isset($response->json()['Data'][0]['flights'])) {
-            $flights = $response->json()['Data'][0]['flights'];
-        }
-
-        if (isset($response->json()['Data'][0]['meta'])) {
-            $meta = $response->json()['Data'][0]['meta'];
-        }
-
-        foreach ($flights as $flight) {
-            $fareGroup = $flight['fareGroup'];
-            $validatingBy = $flight['validatingBy'];
-
-            $segments = $flight['segments'];
-            $segmentsBack = $flight['segmentsBack'] ?? [];
-
-            foreach ($segments as &$segment) {
-                $segment['fareGroup'] = $fareGroup;
-                $segment['validatingBy'] = $validatingBy;
-                $segment['tokenUnique'] = Str::random(60);
+            if (isset($response->json()['Data'][0]['meta'])) {
+                $meta = $response->json()['Data'][0]['meta'];
             }
 
-            if (isset($segmentsBack)) {
-                foreach ($segmentsBack as &$segmentBack) {
-                    $segmentBack['fareGroup'] = $fareGroup;
-                    $segmentBack['validatingBy'] = $validatingBy;
-                    $segmentBack['tokenUnique'] = Str::random(60);
+            foreach ($flights as $flight) {
+                $fareGroup = $flight['fareGroup'];
+                $validatingBy = $flight['validatingBy'];
+
+                $segments = $flight['segments'];
+                $segmentsBack = $flight['segmentsBack'] ?? [];
+
+                foreach ($segments as &$segment) {
+                    $segment['fareGroup'] = $fareGroup;
+                    $segment['validatingBy'] = $validatingBy;
+                    $segment['tokenUnique'] = Str::random(60);
                 }
+
+                if (isset($segmentsBack)) {
+                    foreach ($segmentsBack as &$segmentBack) {
+                        $segmentBack['fareGroup'] = $fareGroup;
+                        $segmentBack['validatingBy'] = $validatingBy;
+                        $segmentBack['tokenUnique'] = Str::random(60);
+                    }
+                }
+
+                $allSegments = array_merge($allSegments, $segments, $segmentsBack);
             }
 
-            $allSegments = array_merge($allSegments, $segments, $segmentsBack);
-        }
+            return [
+                'totalItems' => $response->json()['TotalItens'],
+                'completed' => $response->json()['Completed'],
+                'meta' => $meta,
+                'flights' => $allSegments,
+                'Platform' => 1,
+            ];
+        } while (!$completed);
 
-        return [
-            'totalItems' => $response->json()['TotalItens'],
-            'completed' => $response->json()['Completed'],
-            'meta' => $meta,
-            'flights' => $allSegments,
-            'Platform' => 1,
-        ];
+
 
         // $response = Http::timeout(60)->withHeaders($this->authService->getHeaders())->post(env('DISPONIBILIDADE_MOBLIX'), $data);
 

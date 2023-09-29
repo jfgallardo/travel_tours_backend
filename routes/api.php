@@ -10,6 +10,7 @@ use App\Http\Controllers\Moblix\PessoaFisicaController;
 use App\Http\Controllers\Moblix\SearchFlightController;
 use App\Http\Controllers\PagarmeController;
 use App\Http\Controllers\PassengerController;
+use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\VooController;
 use App\Http\Controllers\Wooba\DetalhesdeFamiliaController;
 use App\Http\Controllers\Wooba\DisponibilidadeController;
@@ -64,6 +65,10 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('zapsign')->group(function () {
         Route::post('batch', [ZapsignController::class, 'batchSignAPI']);
+    });
+
+    Route::prefix('email')->group(function () {
+        Route::post('transfer', [SendEmailController::class, 'transfer'])->middleware('auth');
     });
 
     /*  Route::prefix('moblix')->group(function () {
