@@ -3,6 +3,7 @@
 use App\Http\Controllers\AsaasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ExternalApiController;
 use App\Http\Controllers\Moblix\GravarController;
 use App\Http\Controllers\Moblix\ListarController;
 use App\Http\Controllers\Moblix\MoblixController;
@@ -69,6 +70,10 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('email')->group(function () {
         Route::post('transfer', [SendEmailController::class, 'transfer'])->middleware('auth');
+    });
+
+    Route::prefix('external')->group(function () {
+        Route::get('widget/{cep}', [ExternalApiController::class, 'getDataWidget']);
     });
 
     /*  Route::prefix('moblix')->group(function () {
