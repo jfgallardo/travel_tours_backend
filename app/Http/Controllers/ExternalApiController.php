@@ -11,7 +11,7 @@ class ExternalApiController extends Controller
     {
     }
 
-    function getDataWidget(int $cep)
+    function getDataWidget($cep)
     {
         $result = $this->externalApiService->GetDataWidget($cep);
         return response()->json($result);
